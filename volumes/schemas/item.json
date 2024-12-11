@@ -1,0 +1,45 @@
+{
+    "type": "object",
+    "title": "Some Item",
+    "required": ["slug", "name"],
+    "rostered": ["slug", "name", "color", "size"],
+    "filtered": ["color", "size"],
+    "description": "Some Item Description",
+    "properties": {
+        "slug": {
+            "description": "The unique identifier for a item",
+            "type": "string"
+        },
+        "name": {
+            "description": "Name of the item",
+            "type": "string",
+            "title": "Item Name",
+            "minLength": 3
+        },
+        "color": {
+            "description": "Color of the item",
+            "type": "string",
+            "title": "Item Color"
+        },
+        "size": {
+            "description": "Size of the item",
+            "type": "string"
+        },
+        "user_email": {
+            "type": "string",
+            "format": "email",
+            "title": "Owner Email"
+        },
+        "temperature": {
+            "type": "number",
+            "default": 1.0,
+            "minimum": 0.0,
+            "maximum": 2.0
+        },
+        "created_at": {
+            "type": ["null", "string"],
+            "format": "date-time",
+            "title": "Created At"
+        }
+    }
+}

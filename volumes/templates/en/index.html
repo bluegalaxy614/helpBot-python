@@ -1,0 +1,313 @@
+{% set state.page_title = 'HelpBot AI' %}
+{% extends state.template_base %}
+
+{% block content %}
+
+<section style="background-image: url({{ state.static_url }}/img/figures/1.svg); background-repeat: no-repeat; background-size: 100% auto; background-position: right bottom"> 
+    <div class="container mt-0 pt-5"> 
+        <div class="row align-items-center"> 
+            <div class="col-md-5"> 
+                <h1 class="mb-3">Create, train, and deploy custom chatbots quickly and efficiently</h1> 
+                <h6 class="mb-3">Save time and money with AI chatbots in customer support</h6> 
+                <a href="#" class="btn btn-primary">Get Started</a>
+            </div>
+            <div class="col-md-7">
+                <img src="{{ state.static_url }}/img/element/07.svg" class="img-fluid" alt="">
+            </div>
+        </div>                     
+    </div>                 
+</section>
+
+<section class="container my-5"> 
+    <div class="row g-4 g-lg-5 align-items-center"> 
+        <div class="col-lg-6 order-2"  style="background-image: url({{ state.static_url }}/img/figures/2.svg); background-repeat: no-repeat; background-size: auto 100%; background-position: center bottom"> 
+            <img src="{{ state.static_url }}/img/element/06.svg" class="img-fluid" alt=""> 
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2"> 
+            <!-- Title -->                             
+            <h2>AI chatbots streamline customer support</h2> 
+            <p class="mb-2">AI chatbots can significantly save time and money through several key advantages:</p> 
+            <!-- Info list -->                             
+            <ul class="list-group list-group-flush mb-2"> 
+                <li class="list-group-item d-flex align-items-center px-0"> 
+                    <p class="mb-0 h6 fw-light"><i class="bi bi-arrow-right text-primary me-2"></i>Setup in 10 minutes</p> 
+                </li>                                 
+                <li class="list-group-item d-flex align-items-center px-0"> 
+                    <p class="mb-0 h6 fw-light"><i class="bi bi-arrow-right text-primary me-2"></i>24/7 Availability</p> 
+                </li>                                 
+                <li class="list-group-item d-flex align-items-center px-0"> 
+                    <p class="mb-0 h6 fw-light"><i class="bi bi-arrow-right text-primary me-2"></i>Handling Multiple Inquiries Simultaneously</p> 
+                </li>                                 
+                <li class="list-group-item d-flex align-items-center px-0"> 
+                    <p class="mb-0 h6 fw-light"><i class="bi bi-arrow-right text-primary me-2"></i>Automating Repetitive Tasks</p> 
+                </li>
+                <li class="list-group-item d-flex align-items-center px-0"> 
+                    <p class="mb-0 h6 fw-light"><i class="bi bi-arrow-right text-primary me-2"></i>Lower Operational Costs</p> 
+                </li>                                 
+            </ul>                             
+            <a href="#" class="btn btn-outline-primary">More about us</a> 
+        </div>                         
+    </div>                     
+</section>
+
+
+<section class="container my-5">
+    <h2 class="text-center">Multiple sources as knowledge base</h2>
+    <p class="text-center">To train chatbots effectively, various sources of data can be utilized, including</p>
+
+    <div class="row row-cols-1 row-cols-md-3">
+        <div class="col p-1">
+            <div class="position-relative bg-primary-subtle rounded-3 text-center text-secondary py-2">
+                <div class="bg-body d-inline-block rounded-circle p-3 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16">
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                        <path d="M4.603 14.087a.8.8 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.7 7.7 0 0 1 1.482-.645 20 20 0 0 0 1.062-2.227 7.3 7.3 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a11 11 0 0 0 .98 1.686 5.8 5.8 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.86.86 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.7 5.7 0 0 1-.911-.95 11.7 11.7 0 0 0-1.997.406 11.3 11.3 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.8.8 0 0 1-.58.029m1.379-1.901q-.25.115-.459.238c-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361q.016.032.026.044l.035-.012c.137-.056.355-.235.635-.572a8 8 0 0 0 .45-.606m1.64-1.33a13 13 0 0 1 1.01-.193 12 12 0 0 1-.51-.858 21 21 0 0 1-.5 1.05zm2.446.45q.226.245.435.41c.24.19.407.253.498.256a.1.1 0 0 0 .07-.015.3.3 0 0 0 .094-.125.44.44 0 0 0 .059-.2.1.1 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a4 4 0 0 0-.612-.053zM8.078 7.8a7 7 0 0 0 .2-.828q.046-.282.038-.465a.6.6 0 0 0-.032-.198.5.5 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822q.036.167.09.346z"/>
+                    </svg>
+                </div>
+
+                <h5><a href="#" class="stretched-link">PDF</a></h5>
+                <span>documents</span>
+            </div>
+        </div>
+        <div class="col p-1">
+            <div class="position-relative bg-primary-subtle rounded-3 text-center text-secondary py-2">
+                <div class="bg-body d-inline-block rounded-circle p-3 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-file-earmark-word" viewBox="0 0 16 16">
+                        <path d="M5.485 6.879a.5.5 0 1 0-.97.242l1.5 6a.5.5 0 0 0 .967.01L8 9.402l1.018 3.73a.5.5 0 0 0 .967-.01l1.5-6a.5.5 0 0 0-.97-.242l-1.036 4.144-.997-3.655a.5.5 0 0 0-.964 0l-.997 3.655L5.485 6.88z"/>
+                        <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                    </svg>
+                </div>
+
+                <h5><a href="#" class="stretched-link">MS Office</a></h5>
+                <span>files</span>
+            </div>
+
+        </div>
+        <div class="col p-1">
+            <div class="position-relative bg-primary-subtle rounded-3 text-center text-secondary py-2">
+                <div class="bg-body d-inline-block rounded-circle p-3 mb-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+                        <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5"/>
+                    </svg>
+                </div>
+
+                <h5><a href="#" class="stretched-link">Website</a></h5>
+                <span>sources</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="container my-5"> 
+    <div class="row g-4 g-lg-5 align-items-center"> 
+        <div class="col-lg-6 order-1 order-lg-2"> 
+            <h2>No Coding Required</h2> 
+            <p>HelpBot AI streamlines the process of chatbot development, making it accessible for businesses looking to enhance their customer support and operational efficiency.</p>
+            <ul class="list-group list-group-borderless mb-2">
+                <li class="list-group-item d-flex align-items-center">
+                    <p class="mb-0 h6 fw-light"><b>Cost-Effective Support</b>: By utilizing existing documentation, businesses can save money while enhancing customer support experiences.</p>
+                </li>                                 
+                <li class="list-group-item d-flex align-items-center">
+                    <p class="mb-0 h6 fw-light"><b>Increased Productivity</b>: Automating tasks with chatbots allows teams to focus on more critical activities, improving overall productivity.</p>
+                </li>
+                <li class="list-group-item d-flex align-items-center">
+                    <p class="mb-0 h6 fw-light"><b>24/7 Availability</b>: The virtual assistants can provide round-the-clock support, ensuring that customer inquiries are addressed at any time.</p>
+                </li>
+            </ul>    
+        </div>                         
+        <div class="col-lg-6 order-2"  style="background-image: url({{ state.static_url }}/img/figures/3.svg); background-repeat: no-repeat; background-size: auto 100%; background-position: center bottom"> 
+            <img src="{{ state.static_url }}/img/element/07.svg" class="img-fluid" alt=""> 
+        </div>
+    </div>                     
+</section>
+
+
+<section class="container my-5">
+    <h2 class="text-center">Affordable Pricing Packages</h2>
+    <p class="text-center">Perceived end knowledge certainly day sweetness why cordially</p>
+
+    <div class="row g-4">
+        <!-- Pricing item START -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card border rounded-3 p-2 p-sm-4 h-100">
+                <!-- Card Header -->
+                <div class="card-header p-0">
+                    <!-- Price and Info -->
+                    <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-2">
+                        <!-- Info -->
+                        <div>
+                            <h5 class="mb-0">Basic</h5>
+                            <div class="badge text-bg-dark rounded-pill">Most popular</div>
+                        </div>
+                        <!-- Price -->
+                        <div>
+                            <h4 class="text-success mb-0 plan-price" data-monthly-price="$20"
+                                data-annual-price="$570">$20</h4>
+                            <p class="small mb-0">/ per month</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Divider -->
+                <div class="position-relative my-3 text-center">
+                    <hr>
+                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-3">All plans
+                        included</p>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body pt-0">
+                    <ul class="list-unstyled mt-2 mb-0">
+                        <li class="mb-3 h6 fw-light"><i class="bi bi-patch-check-fill text-success me-2"></i>1
+                            assistant
+                        </li>
+                        <li class="mb-3 h6 fw-light"><i class="bi bi-patch-check-fill text-success me-2"></i>1
+                            knowledge base
+                        </li>
+                        <li class="mb-3 h6 fw-light"><i
+                                class="bi bi-patch-check-fill text-success me-2"></i>Unlimited bandwidth
+                        </li>
+                        <li class="mb-3 h6 fw-light">
+                            <i class="bi bi-patch-check-fill text-success me-2"></i>Chat Logs
+                        </li>
+                        <li class="mb-3 h6 fw-light"> <i class="bi bi-x-octagon-fill text-danger me-2"></i>24/7
+                            dedicated Support
+                        </li>
+                        <li class="mb-3 h6 fw-light"> <i class="bi bi-x-octagon-fill text-danger me-2"></i>Unlimited
+                            updates
+                        </li>
+                        <li class="h6 fw-light"><i class="bi bi-x-octagon-fill text-danger me-2"></i>API access
+                        </li>
+                    </ul>
+                </div>
+                <!-- Card Footer -->
+                <div class="card-footer text-center d-grid">
+                    <button type="button" class="btn btn-light mb-0">Get Started</button>
+                </div>
+            </div>
+        </div>
+        <!-- Pricing item END -->
+        <!-- Pricing item START -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card border rounded-3 p-2 p-sm-4 h-100">
+                <!-- Card Header -->
+                <div class="card-header p-0">
+                    <!-- Price and Info -->
+                    <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-2">
+                        <!-- Info -->
+                        <div>
+                            <h5 class="mb-0">Professional</h5>
+                            <div class="badge bg-warning rounded-pill">Recommended</div>
+                        </div>
+                        <!-- Price -->
+                        <div>
+                            <h4 class="text-success mb-0 plan-price" data-monthly-price="$59"
+                                data-annual-price="$840">$59</h4>
+                            <p class="small mb-0">/ per month</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Divider -->
+                <div class="position-relative my-3 text-center">
+                    <hr>
+                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-3">All plans
+                        included</p>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body pt-0">
+                    <ul class="list-unstyled mt-2 mb-0">
+                        <li class="mb-3 h6 fw-light"><i class="bi bi-patch-check-fill text-success me-2"></i>5
+                            assistants
+                        </li>
+                        <li class="mb-3 h6 fw-light"><i class="bi bi-patch-check-fill text-success me-2"></i>Up to 5
+                            knowledge bases per asst.
+                        </li>
+                        <li class="mb-3 h6 fw-light">
+                            <i class="bi bi-patch-check-fill text-success me-2"></i>Unlimited bandwidth
+                        </li>
+                        <li class="mb-3 h6 fw-light"> <i class="bi bi-patch-check-fill text-success me-2"></i>Chat
+                            Logs
+                        </li>
+                        <li class="mb-3 h6 fw-light"> <i class="bi bi-patch-check-fill text-success me-2"></i>24/7
+                            dedicated Support
+                        </li>
+                        <li class="mb-3 h6 fw-light"> <i class="bi bi-x-octagon-fill text-danger me-2"></i>Unlimited
+                            updates
+                        </li>
+                        <li class="mb-3 h6 fw-light">
+                            <i class="bi bi-x-octagon-fill text-danger me-2"></i>API access
+                        </li>
+                        <li class="h6 fw-light">
+                            <ul></ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Card Footer -->
+                <div class="card-footer text-center d-grid">
+                    <button type="button" class="btn btn-dark mb-0">Get Started</button>
+                </div>
+            </div>
+        </div>
+        <!-- Pricing item END -->
+        <!-- Pricing item START -->
+        <div class="col-md-6 col-xl-4">
+            <div class="card border rounded-3 p-2 p-sm-4 h-100">
+                <!-- Card Header -->
+                <div class="card-header p-0">
+                    <!-- Price and Info -->
+                    <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded-2">
+                        <!-- Info -->
+                        <div>
+                            <h5 class="mb-0">Premium</h5>
+                            <div class="badge text-bg-dark rounded-pill">Best value</div>
+                        </div>
+                        <!-- Price -->
+                        <div>
+                            <h4 class="text-success mb-0 plan-price" data-monthly-price="$99"
+                                data-annual-price="$999">$99</h4>
+                            <p class="small mb-0">/ per month</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Divider -->
+                <div class="position-relative my-3 text-center">
+                    <hr>
+                    <p class="small position-absolute top-50 start-50 translate-middle bg-body px-3">All plans
+                        included</p>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body pt-0">
+                    <ul class="list-unstyled mt-2 mb-0">
+                        <li class="mb-3 h6 fw-light"><i class="bi bi-patch-check-fill text-success me-2"></i>10
+                            assistant
+                        </li>
+                        <li class="mb-3 h6 fw-light"><i class="bi bi-patch-check-fill text-success me-2"></i>Up to 5
+                            knowledge bases per asst.
+                        </li>
+                        <li class="mb-3 h6 fw-light"> <i
+                                class="bi bi-patch-check-fill text-success me-2"></i>Unlimited bandwidth
+                        </li>
+                        <li class="mb-3 h6 fw-light"> <i class="bi bi-patch-check-fill text-success me-2"></i>Chat
+                            Logs
+                        </li>
+                        <li class="mb-3 h6 fw-light"> <i class="bi bi-patch-check-fill text-success me-2"></i>24/7
+                            dedicated Support
+                        </li>
+                        <li class="mb-3 h6 fw-light"> <i
+                                class="bi bi-patch-check-fill text-success me-2"></i>Unlimited updates
+                        </li>
+                        <li class="h6 fw-light">
+                            <i class="bi bi-patch-check-fill text-success me-2"></i>API access
+                        </li>
+                    </ul>
+                </div>
+                <!-- Card Footer -->
+                <div class="card-footer text-center d-grid">
+                    <button type="button" class="btn btn-light mb-0">Get Started</button>
+                </div>
+            </div>
+        </div>
+        <!-- Pricing item END -->
+    </div>
+</section>
+
+{% endblock %}

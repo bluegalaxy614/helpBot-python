@@ -1,0 +1,35 @@
+/*
+body > main {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+body > main h1:first-child {
+    margin-bottom: 2rem;
+}
+
+body.http-error-page main{
+    margin-left: 20%;
+}
+body.http-error-page main h12{
+    margin-bottom: 3rem;
+}
+
+.card:hover .stretched-link::after{
+    background-color: rgba(0,0,0,0.3);
+}
+*/
+body > main > h1:first-child {
+    margin-top: 3rem;
+}
+
+body header .nav-link,
+body footer .nav-link{
+    color: var(--bs-text-body-secondary);
+}
+body header .nav-link:hover,
+body footer .nav-link:hover{
+    color: var(--bs-primary);
+}
+.swagger-ui{
+    font-size: 12px;
+}

@@ -1,0 +1,120 @@
+{% extends state.template_base %}
+
+{% set state.page_title = 'My Assistants' %}
+{% set state.show_sidebar = True %}
+{% set state.auth_required = True %}
+
+{% set data_item = internal_api.assistants_read(request, id=request.query_params.id) %}
+
+{% if data_item is none %}
+    {% set data_form = internal_api.assistants_create(request) %}
+{% else %}
+    {% set data_form = internal_api.assistants_update(request, **data_item) %}
+{% endif %}
+
+
+
+{% block content %}
+
+    {% if data_form is none %}
+        <script>
+            window.location.href = window.location.href;
+        </script>
+
+    {% elif data_form['form_success_data'] %}
+        {% if data_item is none %}
+            <script>
+                window.location.href = window.location.pathname + "?id={{ data_form['form_success_data']['id'] }}";
+            </script>
+
+        {% else %}
+            <h2>All done!</h2>
+
+            <dialog id="helpbot" is="helpbot-dialog"
+                assistant="{{ data_item.id }}"
+                placeholder="Type a question..."
+                websocket-url="wss://{{ state.project_domain }}/ws/helpbot">
+            </dialog>
+
+            <p>
+                Start using assistant &quot;{{ data_form['form_success_data']['name'] }}&quot;
+                <button class="btn btn-outline-primary mx-2"
+                    onclick="let helpbot = document.getElementById('helpbot'); helpbot.showModal()">
+                    <i class="bi bi-chat-right-quote-fill"></i>&nbsp;Start&nbsp;Chat
+                </button>
+                or <a href="?id={{ data_form['form_success_data']['id'] }}" class="alert-link">continue edit assistant</a>.
+            </p>
+        {% endif %}
+
+    {% elif data_item is none %}
+        <h2>Create New Assistant</h2>
+
+        <form method="POST">
+            {% include "base/form.html" %}
+            <div class="row">
+                <div class="col-6">
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary">Create Assistant</button>
+                </div>
+            </div>
+        </form>
+
+    {% else %}
+
+        <h2>{{ data_item.name }}</h2>
+
+        <form method="POST">
+            {% include "base/form.html" %}
+
+            <p class="p-3 border rounded-3">
+                <!-- empty upload_files needs for submiting list of values -->
+                <input type="hidden" name="upload_files" value="">
+                <input type="hidden" name="upload_files" value="">
+
+                <output for="id-upload" class="d-block">
+                    <template>
+                        <div class="row">
+                            <div class="col-6 fw-bold">
+                                <input type="hidden" name="upload_files" value="${file.path}">
+                                ${file.icon} ${file.name}
+                            </div>
+                            <div class="col-6">
+                                <span class="d-inline-block text-end" style="width:8rem">
+                                    <data value="${file.size_bytes}"><small>${file.size}</small></data>
+                                    <a href="${file.path}" target="_blank" class="px-1"><i class="bi bi-download"></i></a>
+                                    <!-- a href="#" onclick="javascript:document.getElementById('id-upload').deleteFile('${file.path}')" class="text-danger px-1"><i class="bi bi-trash"></i></a -->
+                                </span>
+                            </div>
+                        </div>
+                    </template>
+                </output>
+                <label  for="id-upload" class="d-block text-center text-warning p-3">
+                    <i class="bi bi-upload"></i>
+                    <strong translate="yes">Click to add files for upload</strong>
+                </label>
+                <input  id="id-upload" is="nginx-upload"
+                        upload-path="/uploads/{{ data_item.id }}/"
+                        max-files="10"
+                        type="file"
+                        accept=".html, .pdf, .docx, .epub, .fb2" multiple="yes" hidden="hidden">
+            </p>
+
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit"
+                            name="delete-action"
+                            value="{{ data_item.id }}"
+                            class="btn btn-danger"
+                            onclick="return confirm('Delete this assistant?')"
+                    >Delete Assistant</button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary">Update Assistant</button>
+                </div>
+            </div>
+        </form>
+
+    {% endif %}
+
+{% endblock %}

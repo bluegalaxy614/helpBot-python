@@ -1,0 +1,46 @@
+{% for ctrl in data_form.values() %}
+    <div class="my-3">
+        {% if ctrl.type != 'hidden' %}
+            <label class="form-label" for="id-{{ ctrl.name }}">
+                <b>{{ ctrl.label }}</b>
+            </label>
+        {% endif %}
+
+        {% if ctrl.type == 'textarea' %}
+            <textarea class="form-control {% if ctrl.error %}is-invalid{% endif %}"
+                name="{{ ctrl.name }}"
+                id="id-{{ ctrl.name }}"
+                aria-describedby="id-{{ ctrl.name }}-help"
+                {% if ctrl.required %}required2="true"{% endif %}
+                {% if ctrl.minlength %}minlength="{{ ctrl.minlength }}"{% endif %}
+                {% if ctrl.maxlength %}maxlength="{{ ctrl.maxlength }}"{% endif %}
+                {% if ctrl.maxlength > 1000 %}style="height: 180px"{% endif %}
+            >{{ ctrl.value }}</textarea>
+        {% else %}
+            <input class="form-control {% if ctrl.error %}is-invalid{% endif %}"
+                name="{{ ctrl.name }}"
+                type="{{ ctrl.type }}"
+                value="{{ ctrl.value }}"
+                id="id-{{ ctrl.name }}"
+                lang="en"
+                aria-describedby="id-{{ ctrl.name }}-help"
+                {% if ctrl.required %}required2="true"{% endif %}
+                {% if ctrl.minlength %}minlength2="{{ ctrl.minlength }}"{% endif %}
+                {% if ctrl.maxlength %}maxlength2="{{ ctrl.maxlength }}"{% endif %}
+                {% if ctrl.min %}min="{{ ctrl.min }}"{% endif %}
+                {% if ctrl.max %}max="{{ ctrl.max }}"{% endif %}
+                {% if ctrl.max %}step="0.1"{% endif %}
+            >
+        {% endif %}
+
+        {% if ctrl.error %}
+            <div class="invalid-feedback" id="id-{{ ctrl.name }}-help">
+                {{ ctrl.error }}
+            </div>
+        {% else %}
+            <div class="form-text" id="id-{{ ctrl.name }}-help">
+                {{ ctrl.description }}
+            </div>
+        {% endif %}
+    </div>
+{% endfor %}

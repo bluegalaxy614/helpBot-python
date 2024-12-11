@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="<!--# echo var='request_lang' -->" data-bs-theme="<!--# echo var='request_theme' -->">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ state.page_description }}">
+    <meta name="keywords" content="{{ state.page_keywords }}">
+
+    <title>{{ state.page_title }} | {{ state.project_title }}</title>
+
+    <link rel="apple-touch-icon" href="/_/img/favicon/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/_/img/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/_/img/favicon/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="icon" href="/_/img/favicon/favicon.ico">
+    <link rel="manifest" href="/_/img/favicon/site.webmanifest">
+
+    <!-- Google Font -->         
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"> 
+
+    <link rel="stylesheet" href="/_/bs/styles.css">
+    <link rel="stylesheet" href="/_/bs-icons/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/_/css/main.css">
+
+    <link rel="stylesheet" href="/_/sui/swagger-ui.css" />
+
+    <script src="/_/js/nginx-upload.js"></script>
+    <script src="/_/js/helpbot-dialog.js"></script>
+
+  </head>
+
+<body class="container">
+
+    {% if state.show_navbar %}
+        {% include state.template_navbar %}
+    {% endif %}
+
+    <div class="d-flex flex-nowrap">
+
+        {% if state.show_sidebar %}
+            <aside class="d-flex flex-column" style="width: 380px;">
+                <div class="text-bg-dark p-3 my-3 rounded-2">
+                    {% block sidebar %}
+                    {% endblock %}
+                    <ul class="nav flex-column">
+                      <li class="nav-item">
+                        <a href="#" class="nav-link text-white" data-bs-toggle="collapse" data-bs-target="#assistants-collapse" aria-expanded="true">
+                          <i class="bi bi-patch-check-fill"></i>
+                          My Assistants
+                        </a>
+
+                        <div class="collapse show" id="assistants-collapse">
+                          <ul class="btn-toggle-nav">
+                                {% for assistant in internal_api.assistants_list(request, user_email=request.user.email) %}
+                                    <li>
+                                        <a href="/{{ state.lang }}/assistants.html?id={{ assistant.id }}"
+                                           class="text-reset text-decoration-none small">
+                                            {% if request.query_params.id == assistant.id %}
+                                                <b>{{ assistant.name }}</b>
+                                            {% else %}
+                                                {{ assistant.name }}
+                                            {% endif %}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                                <li>
+                                    <a href="/{{ state.lang }}/assistants.html?"
+                                       class="text-danger text-decoration-none small">
+                                        {% if request.query_params.id is undefined %}
+                                            <b>Create new assistant</b>
+                                        {% else %}
+                                            Create new assistant
+                                        {% endif %}
+                                    </a>
+                                </li>
+                          </ul>
+                        </div>
+
+                      </li>
+                      <!-- li class="nav-item">
+                        <a href="#" class="nav-link text-reset disabled">
+                          <i class="bi bi-newspaper"></i> Dashboard
+                        </a>
+                      </li -->
+                      <li class="nav-item">
+                        <a href="/{{ state.lang }}/user/profile.html" class="nav-link text-reset">
+                          <i class="bi bi-newspaper"></i> My profile
+                        </a>
+                      </li>
+
+                    </ul>
+
+                    <hr>
+
+                    <form method="POST" action="/auth/sign-out?rd=/">
+                        <button type="submit" class="btn btn-danger px-3">
+                            <span translate="yes">Sign Out</span>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+        {% endif %}
+
+        <main class="d-flex flex-column flex-grow-1 p-3">
+            {% block content %}
+            {% endblock %}
+
+            <!-- dialog id="helpbot" is="helpbot-dialog"
+                    assistant="asst_K5FbHS5qlndJBYRzdv23M7Xy"
+                    placeholder="Type a question..."
+                    websocket-url="wss://{{ state.project_domain }}/ws/helpbot">
+            </dialog>
+
+            <button class="helpbot-launcher" onclick="document.getElementById('helpbot').showModal()">
+                <img src="/_/img/helpbot-avatar.svg" width="32">
+            </button -->
+        </main>
+    </div>
+
+    {% if state.show_downbar %}
+        {% include state.template_downbar %}
+    {% endif %}
+
+    <script src="/_/bs/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!--# set var='document_title' value='User authorization' -->
+<!--# include file='/_ssi/header.html' -->
+
+<!--# if expr='$user_email' -->
+    <div class="card mx-auto" style="width: 60%">
+        <div class="card-header">
+            <h1 translate="yes">Authorised Access</h1>
+        </div>
+
+        <div class="card-body">
+            <p class="card-text">
+                <a href="/<!--# echo var='request_lang' -->/user/profile.html">
+                    <b><!--# echo var='user_name' --></b> profile
+                </a>
+            </p>
+        </div>
+    </div>
+
+<!--# else -->
+    <div class="card mx-auto" style="width: 60%">
+        <div class="card-header">
+            <h1 translate="yes">Sign in to the system</h1>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <form method="POST" action="/auth/google/start?rd=/auth/sign-in%3Frd%3D/<!--# echo var='request_lang' -->/bots/">
+                    <button type="submit" class="btn btn-secondary px-3">
+                        <i class="bi bi-google"></i>
+                        <span translate="yes">Sign in with Google</span>
+                    </button>
+                </form>
+            </p>
+
+            <p class="card-text" translate="yes"><b>Important:</b> To use Sign in with Google, you need a Google Account. Your Google Account is the same account you use for Gmail, Drive, and other Google apps.</p>
+            <p class="card-text" translate="yes">Sign in with Google helps you easily and securely sign in to third-party apps or services with your Google Account. When you use Sign in with Google, you don't have to enter a username and password repeatedly across different services.</p>
+
+            <p class="card-text">
+                <form method="POST" action="/auth/github/start?rd=/auth/sign-in%3Frd%3D/<!--# echo var='request_lang' -->/bots/">
+                    <button type="submit" class="btn btn-secondary px-3">
+                        <i class="bi bi-github"></i>
+                        <span translate="yes">Sign in with Github</span>
+                    </button>
+                </form>
+            </p>
+        </div>
+    </div>
+
+<!--# endif -->
+
+<!--# include file='/_ssi/footer.html' -->

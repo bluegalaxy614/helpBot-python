@@ -1,0 +1,16 @@
+<!--# set var='document_title' value='API Documentations' -->
+<!--# include file='/_ssi/header.html' -->
+
+
+<div id="swagger-ui"></div>
+<script src="/_/sui/swagger-ui-bundle.js" crossorigin></script>
+<script>
+  window.onload = () => {
+    window.ui = SwaggerUIBundle({
+      url: '/api/schema',
+      dom_id: '#swagger-ui',
+    });
+  };
+</script>
+
+<!--# include file='/_ssi/footer.html' -->
