@@ -1,0 +1,57 @@
+<!--# set var='document_title' value='Templates test page' -->
+<!--# include file='/_ssi/header.html' -->
+
+{% block context %}
+    context string
+{% endblock %}
+
+<hr>
+
+<p>
+
+    {% if request.query_params.id is not defined %}
+        request.query_params.id is not defined
+    {% else %}
+        request.query_params.id is {{ request.query_params.id }}
+    {% endif %}
+
+</p>
+
+    {{ internal_api.assistants_update(request, id=request.query_params.id) }}
+<hr>
+
+
+<ul class="list-group">
+    {% set assistants_data = internal_api.assistants_list(request) %}
+
+    {% for assistant in assistants_data %}
+        {% if assistant_id == assistant.id %}
+            <li class="list-group-item d-flex justify-content-between align-items-start active">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">
+                        {{ assistant.name }}
+                    </div>
+                    <small>{{ assistant.description }}</small>
+                </div>
+            </li>
+        {% else %}
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <div class="fw-bold">
+                        <a href="?id={{ assistant.id }}">{{ assistant.name }}</a>
+                        {{ assistant.metadata.user_email }}
+                    </div>
+                    <small>{{ assistant.description }}</small>
+                </div>
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+
+<p><b>request</b>: {{ request }}</p>
+<p><b>settings</b>: {{ settings }}</p>
+<p><b>schema</b>: {{ internal_api.schema }}</p>
+
+
+<!--# include file='/_ssi/footer.html' -->

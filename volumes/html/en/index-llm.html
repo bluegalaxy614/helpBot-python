@@ -1,0 +1,410 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   HelpBot AI
+  </title>
+  <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .hero-section {
+            background-color: #f0f7ff;
+            padding: 60px 0;
+        }
+        .hero-section h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .hero-section p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .hero-section .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+        .features-section {
+            padding: 60px 0;
+        }
+        .features-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .features-section p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .features-section .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+        .knowledge-base-section {
+            background-color: #f0f7ff;
+            padding: 60px 0;
+        }
+        .knowledge-base-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .knowledge-base-section p {
+            font-size: 1rem;
+            margin-bottom: 40px;
+        }
+        .knowledge-base-section .card {
+            border: none;
+            background-color: #e9f2ff;
+            padding: 20px;
+            text-align: center;
+        }
+        .knowledge-base-section .card img {
+            width: 50px;
+            margin-bottom: 20px;
+        }
+        .pricing-section {
+            padding: 60px 0;
+        }
+        .pricing-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        .pricing-section .card {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            text-align: center;
+        }
+        .pricing-section .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .pricing-section .card p {
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .pricing-section .card .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
+        .navbar {
+            padding: 20px 0;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        .navbar-nav .nav-link {
+            font-size: 1rem;
+            margin-right: 20px;
+        }
+        .navbar .btn {
+            font-size: 1rem;
+        }
+  </style>
+ </head>
+ <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <div class="container">
+    <a class="navbar-brand" href="#">
+     HelpBot
+    </a>
+    <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+     <span class="navbar-toggler-icon">
+     </span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+     <ul class="navbar-nav ms-auto">
+      <li class="nav-item">
+       <a class="nav-link" href="#">
+        About
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="#">
+        Contact
+       </a>
+      </li>
+      <li class="nav-item">
+       <a class="nav-link" href="#">
+        Language
+       </a>
+      </li>
+      <li class="nav-item">
+       <button class="btn btn-outline-dark">
+        Sign in
+       </button>
+      </li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+  <section class="hero-section text-center">
+   <div class="container">
+    <div class="row align-items-center">
+     <div class="col-md-6">
+      <h1>
+       Create, train, and deploy custom chatbots quickly and efficiently
+      </h1>
+      <p>
+       Save time and money with AI chatbots in customer support
+      </p>
+      <button class="btn btn-primary">
+       Get Started
+      </button>
+     </div>
+     <div class="col-md-6">
+      <img alt="Illustration of a person interacting with a chatbot on a screen" class="img-fluid" height="300" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-5VmP8Zwrfd7dtQiTV5SxZ87s/user-DkWlKbfgeu3D2ksjRFTqZjfL/img-V4VxVE123hoJo6uihNY3zXAg.png?st=2024-11-04T10%3A52%3A42Z&amp;se=2024-11-04T12%3A52%3A42Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-11-04T01%3A23%3A06Z&amp;ske=2024-11-05T01%3A23%3A06Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=YvpJ2L4FqA9/Pe8kpy%2BWhKT0HTv5bf2W80lfQg8q4Iw%3D" width="500"/>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="features-section text-center">
+   <div class="container">
+    <div class="row align-items-center">
+     <div class="col-md-6">
+      <img alt="Illustration of a person using a tablet with chatbot features" class="img-fluid" height="300" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-5VmP8Zwrfd7dtQiTV5SxZ87s/user-DkWlKbfgeu3D2ksjRFTqZjfL/img-Kn4qIUJU9eE78k7k112bHjVB.png?st=2024-11-04T10%3A52%3A39Z&amp;se=2024-11-04T12%3A52%3A39Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-11-04T02%3A14%3A39Z&amp;ske=2024-11-05T02%3A14%3A39Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=edoLeqkc8bT87tD6sHCKHr9abAXwjwOtMwlCRZx91OQ%3D" width="500"/>
+     </div>
+     <div class="col-md-6">
+      <h2>
+       AI chatbots streamline customer support
+      </h2>
+      <p>
+       AI chatbots can significantly save time and money through several key advantages:
+      </p>
+      <p>
+       → Setup in 10 minutes
+      </p>
+      <p>
+       → 24/7 Availability
+      </p>
+      <p>
+       → Handling Multiple Inquiries Simultaneously
+      </p>
+      <p>
+       → Automating Repetitive Tasks
+      </p>
+      <p>
+       → Lower Operational Costs
+      </p>
+      <button class="btn btn-secondary">
+       More about us
+      </button>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="knowledge-base-section text-center">
+   <div class="container">
+    <h2>
+     Multiple sources as knowledge base
+    </h2>
+    <p>
+     To train chatbots effectively, various sources of data can be utilized, including
+    </p>
+    <div class="row">
+     <div class="col-md-4">
+      <div class="card">
+       <img alt="PDF icon" height="50" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-5VmP8Zwrfd7dtQiTV5SxZ87s/user-DkWlKbfgeu3D2ksjRFTqZjfL/img-HxCkUMLCmKWTdXCX3gVchqyp.png?st=2024-11-04T10%3A52%3A43Z&amp;se=2024-11-04T12%3A52%3A43Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-11-04T01%3A34%3A16Z&amp;ske=2024-11-05T01%3A34%3A16Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=p0g5WUrSkYj0AhXZRQLXm0BEGGGTlv0oom1B0Zo1GTc%3D" width="50"/>
+       <h3>
+        PDF
+       </h3>
+       <p>
+        documents
+       </p>
+      </div>
+     </div>
+     <div class="col-md-4">
+      <div class="card">
+       <img alt="MS Office icon" height="50" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-5VmP8Zwrfd7dtQiTV5SxZ87s/user-DkWlKbfgeu3D2ksjRFTqZjfL/img-22gbRXMRZuNHIqGvFwQl32tM.png?st=2024-11-04T10%3A52%3A40Z&amp;se=2024-11-04T12%3A52%3A40Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-11-04T01%3A45%3A37Z&amp;ske=2024-11-05T01%3A45%3A37Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=M4FM2KuCUEV60TEcGGLVB%2BUYu27iNK1pu6JSLgvdy8k%3D" width="50"/>
+       <h3>
+        MS Office
+       </h3>
+       <p>
+        files
+       </p>
+      </div>
+     </div>
+     <div class="col-md-4">
+      <div class="card">
+       <img alt="Website icon" height="50" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-5VmP8Zwrfd7dtQiTV5SxZ87s/user-DkWlKbfgeu3D2ksjRFTqZjfL/img-9h2tkp8xsLHKp0sSQ716OcwS.png?st=2024-11-04T10%3A52%3A40Z&amp;se=2024-11-04T12%3A52%3A40Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-11-03T21%3A59%3A41Z&amp;ske=2024-11-04T21%3A59%3A41Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=xcGuMU62xqsUS8GAvegjjY/VQvDZwNNksSUrnib5wa0%3D" width="50"/>
+       <h3>
+        Website
+       </h3>
+       <p>
+        sources
+       </p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="features-section text-center">
+   <div class="container">
+    <div class="row align-items-center">
+     <div class="col-md-6">
+      <h2>
+       No Coding Required
+      </h2>
+      <p>
+       HelpBot AI streamlines the process of chatbot development, making it accessible for businesses looking to enhance their customer support and operational efficiency.
+      </p>
+      <p>
+       Cost-Effective Support: By utilizing existing documentation, businesses can save money while enhancing customer support experiences.
+      </p>
+      <p>
+       Increased Productivity: Automating tasks with chatbots allows teams to focus on more critical activities, improving overall productivity.
+      </p>
+      <p>
+       24/7 Availability: The virtual assistants can provide round-the-clock support, ensuring that customer inquiries are addressed at any time.
+      </p>
+     </div>
+     <div class="col-md-6">
+      <img alt="Illustration of a person working on a laptop with chatbot features" class="img-fluid" height="300" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-5VmP8Zwrfd7dtQiTV5SxZ87s/user-DkWlKbfgeu3D2ksjRFTqZjfL/img-bAj4xKKUPUCImw3P27eVzyYS.png?st=2024-11-04T10%3A52%3A44Z&amp;se=2024-11-04T12%3A52%3A44Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-11-04T02%3A13%3A15Z&amp;ske=2024-11-05T02%3A13%3A15Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=UiDMvXVfQPFn6beV6poFJbiJIDd1qe0FZZ7FFIAdGiE%3D" width="500"/>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="features-section text-center">
+   <div class="container">
+    <div class="row align-items-center">
+     <div class="col-md-6">
+      <img alt="Illustration of a person adding AI assistant to a website" class="img-fluid" height="300" src="https://oaidalleapiprodscus.blob.core.windows.net/private/org-5VmP8Zwrfd7dtQiTV5SxZ87s/user-DkWlKbfgeu3D2ksjRFTqZjfL/img-YRRsOo8tufGwxp7tS3N3jSfS.png?st=2024-11-04T10%3A52%3A42Z&amp;se=2024-11-04T12%3A52%3A42Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;rscd=inline&amp;rsct=image/png&amp;skoid=d505667d-d6c1-4a0a-bac7-5c84a87759f8&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2024-11-04T01%3A54%3A43Z&amp;ske=2024-11-05T01%3A54%3A43Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=IWqq9DYkH1bC4kmM4hXIzIwO/Pycnxddwdz4eehikrY%3D" width="500"/>
+     </div>
+     <div class="col-md-6">
+      <h2>
+       Adding AI assistant to your website is quick and easy with our fully customizable widgets
+      </h2>
+      <button class="btn btn-warning">
+       Get a free trial
+      </button>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section class="pricing-section text-center">
+   <div class="container">
+    <h2>
+     Affordable Pricing Packages
+    </h2>
+    <div class="row">
+     <div class="col-md-4">
+      <div class="card">
+       <h3>
+        Basic
+       </h3>
+       <p>
+        $20 / per month
+       </p>
+       <p>
+        1 assistant
+       </p>
+       <p>
+        1 knowledge base
+       </p>
+       <p>
+        Unlimited bandwidth
+       </p>
+       <p>
+        Chat Logs
+       </p>
+       <p>
+        24/7 dedicated Support
+       </p>
+       <p>
+        Unlimited updates
+       </p>
+       <p>
+        API access
+       </p>
+       <button class="btn btn-primary">
+        Get Started
+       </button>
+      </div>
+     </div>
+     <div class="col-md-4">
+      <div class="card">
+       <h3>
+        Professional
+       </h3>
+       <p>
+        $59 / per month
+       </p>
+       <p>
+        5 assistants
+       </p>
+       <p>
+        Up to 5 knowledge bases per asst.
+       </p>
+       <p>
+        Unlimited bandwidth
+       </p>
+       <p>
+        Chat Logs
+       </p>
+       <p>
+        24/7 dedicated Support
+       </p>
+       <p>
+        Unlimited updates
+       </p>
+       <p>
+        API access
+       </p>
+       <button class="btn btn-primary">
+        Get Started
+       </button>
+      </div>
+     </div>
+     <div class="col-md-4">
+      <div class="card">
+       <h3>
+        Premium
+       </h3>
+       <p>
+        $99 / per month
+       </p>
+       <p>
+        10 assistants
+       </p>
+       <p>
+        Up to 5 knowledge bases per asst.
+       </p>
+       <p>
+        Unlimited bandwidth
+       </p>
+       <p>
+        Chat Logs
+       </p>
+       <p>
+        24/7 dedicated Support
+       </p>
+       <p>
+        Unlimited updates
+       </p>
+       <p>
+        API access
+       </p>
+       <button class="btn btn-primary">
+        Get Started
+       </button>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+Y5q5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5Y5n5
+ </body>
+</html>

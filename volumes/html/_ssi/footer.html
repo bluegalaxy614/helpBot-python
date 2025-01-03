@@ -1,0 +1,101 @@
+    <dialog id="helpbot" is="helpbot-dialog"
+            assistant="asst_K5FbHS5qlndJBYRzdv23M7Xy"
+            placeholder="Type a question..."
+            websocket-url="wss://<!--# echo var='project_domain' -->/ws/helpbot">
+    </dialog>
+
+    <button class="helpbot-launcher" onclick="document.getElementById('helpbot').showModal()">
+        <img src="/_/img/helpbot-avatar.svg" width="32">
+    </button>
+</main>
+
+
+<footer class="container text-body-secondary border-top py-3">
+    <div class="row g-4 justify-content-between">
+        <div class="col-md-5 col-lg-4">
+            <div class="row">
+                <div class="col-2">
+                    <img height="36" src="/_/img/akira-logo.png" aria-label="" />
+                </div>
+                <div class="col-10">
+                    <strong>HelpBot</strong>
+                    <span class="d-block small">Unlocking the Treasure of Knowledge.</span>
+                </div>
+            </div>
+
+            <form class="row row-cols-lg-auto my-5">
+                <div class="col-12">
+                    <input type="email" class="form-control" placeholder="Enter your email address"  disabled>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-dark m-0"  disabled>Subscribe</button>
+                </div>
+            </form>
+
+            <p class="my-5">Copyrights &copy;2024 IOIX Inc.</p>
+
+        </div>
+
+        <div class="col-md-7 col-lg-6">
+            <div class="row g-4 g-lg-5">
+                <div class="col-6 col-sm-4">
+                    <ul class="nav flex-column">
+                        <li class="nav-item"><a class="nav-link" href="/<!--# echo var='request_lang' -->/">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Contact us</a></li>
+                        <li class="nav-item"><a href="/<!--# echo var='request_lang' -->/terms.html" class="nav-link">Terms of use</a></li>
+                        <li class="nav-item"><a href="/<!--# echo var='request_lang' -->/privacy.html" class="nav-link">Privacy policy</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/<!--# echo var='request_lang' -->/api-doc.html">API&nbsp;Documentation</a></li>
+                    </ul>
+                </div>
+                <!-- Link block -->
+                <div class="col-6 col-sm-4">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Download</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Pricing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Services</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Link block -->
+                <div class="col-6 col-sm-4">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-facebook"></i>
+                                Facebook
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-instagram"></i>
+                                Instagram
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-twitter"></i>
+                                Twitter
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="bi bi-linkedin"></i>
+                                Linkedin
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="/_/bs/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

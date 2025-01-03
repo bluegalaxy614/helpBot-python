@@ -1,0 +1,40 @@
+{% extends state.template_base %}
+
+{% set state.page_title = 'My Assistants' %}
+{% set state.show_sidebar = True %}
+{% set state.auth_required = True %}
+
+
+{% block content %}
+
+    <h1>Your profile</h1>
+
+    <form action="/app/api/user/" method="post" class="col-md-6">
+        <!-- input name="prev" type="hidden" value="# echo var='request_uri'" -->
+
+        <p>
+            <label>Name</label>
+            <input name="user_name" value="<!--# echo var='user_name' -->" type="text" class="form-control" aria-describedby="user_name_hint">
+            <small id="user_name_hint" class="form-text">The name associated with this account</small>
+        </p>
+
+        <p>
+            <label>Email address</label>
+            <input name="user_email" value="<!--# echo var='user_email' -->" type="email" class="form-control" aria-describedby="user_email_hint" disabled readonly>
+            <small id="user_email_hint" class="form-text">The email address associated with this account</small>
+        </p>
+
+        <p>
+            <label>Phone number</label>
+            <input name="user_phone" value="<!--# echo var='user_phone' -->" type="phone" class="form-control" aria-describedby="user_phone_hint">
+            <small id="user_phone_hint" class="form-text">The phone number associated with this account</small>
+        </p>
+
+        <p>
+            <button type="submit" class="btn btn-primary px-3">
+                <span translate="yes">Save</span>
+            </button>
+        </p>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+<header class="navbar navbar-expand-lg bg-body border-bottom sticky-top">
+
+    <nav class="container-fluid" aria-label="Offcanvas navbar large">
+        <a class="navbar-brand" style="line-height:64px" href="/<!--# echo var='request_lang' -->/" aria-label="<!--# echo var='project_title' -->">
+            <img height="36" src="/_/img/akira-logo.png" role="img" aria-label="<!--# echo var='project_title' --> Logotype" />
+            <strong>HelpBot</strong>
+        </a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#navbar-toggler-id"
+                aria-controls="navbar-toggler-id" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="navbar-toggler-id" aria-labelledby="navbar-toggler-label">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="navbar-toggler-label">Offcanvas</h5>
+                <button class="btn-close" type="button"
+                        data-bs-dismiss="offcanvas" aria-label="Close">
+                </button>
+            </div>
+            <div class="offcanvas-body gap-2">
+                <ul class="navbar-nav justify-content-end flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/<!--# echo var='request_lang' -->/">
+                            <span translate="yes">About</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <span translate="yes">Contact us</span>
+                        </a>
+                    </li>
+                    <!-- li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li -->
+                </ul>
+
+                <form class="d-flex mt-3 mt-lg-0" action="/set-lang" method="post" id="id_navbar_lang_form">
+                    <input name="prev" type="hidden" value="<!--# echo var='request_uri' -->">
+                    <select name="lang" class="form-select" onchange="this.form.submit()">
+                        <option value="en" <!--# if expr='$request_lang = en' -->selected<!--# endif -->>English</option>
+                        <option value="ja" <!--# if expr='$request_lang = ja' -->selected<!--# endif -->>日本語</option>
+                        <option value="uk" <!--# if expr='$request_lang = uk' -->selected<!--# endif -->>Українська</option>
+                    </select>
+                </form>
+
+                <form class="d-flex mt-3 mt-lg-0" action="/set-theme" method="post" id="id_navbar_theme_form">
+                    <input name="prev" type="hidden" value="<!--# echo var='request_uri' -->">
+
+                    <!--# if expr='$request_theme = dark' -->
+                        <button title="Use light mode"
+                                class="btn"
+                                name="theme" value="light">
+                            <i class="bi bi-sun"></i>
+                        </button>
+                    <!--# else -->
+                        <button title="Use dark mode"
+                                class="btn"
+                                name="theme" value="dark">
+                            <i class="bi bi-moon-stars"></i>
+                        </button>
+                    <!--# endif -->
+                </form>
+
+                <div class="navbar-nav">
+                    <!--# if expr='$user_email' -->
+                        <a href="/<!--# echo var='request_lang' -->/user/profile.html">
+                            <img width="40" class="img-thumbnail" alt="User Avatar" src="<!--# echo var='user_avatar' -->">
+                        </a>
+                    <!--# else -->
+                        <a class="btn btn-dark" href="/<!--# echo var='request_lang' -->/user/sign-in.html">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span translate="yes">Sign In</span>
+                        </a>
+                    <!--# endif -->
+                </div>
+
+            </div>
+        </div>
+    </nav>
+</header>

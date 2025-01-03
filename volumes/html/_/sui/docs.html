@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="swagger-ui.css" />
+    <script src="swagger-ui-bundle.js" crossorigin></script>
+</head>
+<body>
+    <div id="swagger-ui"></div>
+    <script>
+        window.onload = () => {
+            window.ui = SwaggerUIBundle({
+                url: '/api/v1/openapi.json',
+                dom_id: '#swagger-ui',
+            });
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!--# set var='document_title' value='XMLHttpRequestUpload test' -->
+<!--# include file='/_ssi/header.html' -->
+
+<h1 translate="yes">Upload files to <code>/app/api/user/files/docs/</code></h1>
+
+<p>
+    <input  id="id-nginx-upload" is="nginx-upload"
+            upload-path="/app/api/user/files/docs/"
+            max-files="10"
+            name="files" type="file" accept=".html, .txt, .pdf" multiple="yes" hidden="hidden">
+    <label  for="id-nginx-upload" class="btn btn-primary">
+        Browse...
+    </label>
+    <output for="id-nginx-upload">
+        No files selected.
+    </output>
+</p>
+
+<hr>
+
+<h1 translate="yes">Upload files to <code>/app/api/user/files/extra-docs/</code></h1>
+
+<form method="POST">
+
+    <p class="p-3 border rounded-3">
+        <output for="id-upload" class="d-block">
+            <template>
+                <div class="row">
+                    <div class="col-md-6 fw-bold">
+                        <input type="hidden" name="file" value="${file.path}">
+                        ${file.icon} ${file.name}
+                    </div>
+                    <div class="col-md-6">
+                        <time datetime="${file.mtime_iso}" class="d-inline-block" style="width:12rem">
+                            <small>${file.mtime}</small>
+                        </time>
+                        <span class="d-inline-block text-end" style="width:8rem">
+                            <data value="${file.size_bytes}"><small>${file.size}</small></data>
+                            <a href="${file.path}" target="_blank" class="px-1"><i class="bi bi-download"></i></a>
+                            <a href="#" onclick="javascript:document.getElementById('id-upload').deleteFile('${file.path}')" class="text-danger px-1"><i class="bi bi-trash"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </template>
+        </output>
+        <label  for="id-upload" class="d-block text-center text-warning p-3">
+            <i class="bi bi-upload"></i>
+            <strong translate="yes">Click to add files for upload</strong>
+        </label>
+        <input  id="id-upload" is="nginx-upload"
+                upload-path="/app/api/user/files/extra-docs/"
+                max-files="10"
+                name="files" type="file"
+                accept=".html, .pdf, .docx, .epub, .fb2" multiple="yes" hidden="hidden">
+    </p>
+
+    <p>
+        <button type="submit" class="btn btn-primary">
+            Submit form
+        </button>
+    </p>
+</form>
+
+<!--# include file='/_ssi/footer.html' -->

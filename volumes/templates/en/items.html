@@ -1,0 +1,52 @@
+{% extends state.template_base %}
+
+{% set state.page_title = 'Items list 2' %}
+{% set state.auth_required = True %}
+
+{% set data_item = internal_api.items_read(request, slug=request.query_params.slug) %}
+
+{% if data_item is none %}
+    {% set data_form = internal_api.items_create(request) %}
+{% else %}
+    {% set data_form = internal_api.items_update(request, **data_item) %}
+{% endif %}
+
+{% set data_list = internal_api.items_list(request) %}
+
+
+{% block content %}
+    <ul>
+        {% for item in data_list %}
+            <li>
+                <a href="?slug={{ item.slug }}" class="d-inline-flex text-decoration-none rounded">
+                    {{ item }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if data_form is none %}
+        <script>
+            window.location.href = window.location.href;
+        </script>
+
+    {% elif data_item is none %}
+        <form method="POST">
+            {% include "base/form.html" %}
+            <p>
+                <button type="submit" class="btn btn-primary">Create</button>
+            </p>
+        </form>
+
+    {% else %}
+        <form method="POST">
+            {% include "base/form.html" %}
+            <p>
+                <button type="submit" name="delete-action" value="{{ data_item.slug }}" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </p>
+        </form>
+
+    {% endif %}
+
+{% endblock %}

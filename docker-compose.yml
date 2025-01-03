@@ -1,0 +1,325 @@
+networks:
+  akira-net:
+    external: true
+
+services:
+
+  auth-google:
+    image: quay.io/oauth2-proxy/oauth2-proxy:latest
+    networks: ["akira-net"]
+    restart: unless-stopped
+    # ports:
+    #   # - "127.0.0.1:4180:4180"
+    #   - "127.0.0.1:9091:9091"  # metrics
+    # volumes:
+    #   - ./cfgs/oauth-allow-emails.txt:/oauth-allow-emails.txt:ro
+    command:
+      - "--reverse-proxy=true"
+      - "--http-address=0.0.0.0:4180"
+      - "--redirect-url=https://${APP_DOMAIN}/auth/google/callback"
+      - "--email-domain=*"
+      - "--set-xauthrequest=true"
+      - "--proxy-prefix=/auth/google"
+      # - "--force-json-errors=true"
+      # - "--profile-url=https://${APP_DOMAIN}/auth/profile/"
+      # - "--upstream=file:///dev/null"
+      # - "--prefer-email-to-user=true"
+      # - "--pass-basic-auth=true"
+      # - "--pass-user-headers=true"
+      # - "--pass-access-token=true"
+      # - "--set-authorization-header=true"
+      - "--session-cookie-minimal=true"
+      # - "--cookie-domain=${APP_DOMAIN}"
+      - "--cookie-samesite=lax"
+      - "--cookie-secret=${SECRET_KEY}"
+      - "--cookie-name=auth_google"
+      - "--cookie-expire=24h"
+      - "--cookie-secure=true"
+
+      # - "--skip-provider-button=true"
+      # - "--metrics-address=0.0.0.0:9091"
+    environment:
+      # OAUTH2_PROXY_SCOPE: "email"  # by default "profile email"
+      OAUTH2_PROXY_PROVIDER: "google"
+      OAUTH2_PROXY_CLIENT_ID: "${OAUTH2_GOOGLE_CLIENT_ID}"
+      OAUTH2_PROXY_CLIENT_SECRET: "${OAUTH2_GOOGLE_CLIENT_SECRET}"
+
+  auth-github:
+    image: quay.io/oauth2-proxy/oauth2-proxy:latest
+    networks: ["akira-net"]
+    restart: unless-stopped
+    command:
+      - "--reverse-proxy=true"
+      - "--http-address=0.0.0.0:4180"
+      - "--redirect-url=https://${APP_DOMAIN}/auth/github/callback"
+      - "--email-domain=*"
+      - "--set-xauthrequest=true"
+      - "--proxy-prefix=/auth/github"
+      - "--session-cookie-minimal=true"
+      # - "--cookie-domain=${APP_DOMAIN}"
+      - "--cookie-samesite=lax"
+      - "--cookie-secret=${SECRET_KEY}"
+      - "--cookie-name=auth_github"
+      - "--cookie-expire=24h"
+      - "--cookie-secure=true"
+    environment:
+      OAUTH2_PROXY_PROVIDER: "github"
+      OAUTH2_PROXY_CLIENT_ID: "${OAUTH2_GITHUB_CLIENT_ID}"
+      OAUTH2_PROXY_CLIENT_SECRET: "${OAUTH2_GITHUB_CLIENT_SECRET}"
+
+  # certbot-oneshot:
+  #   image: certbot/certbot
+  #   networks: ["akira-net"]
+  #   restart: no
+  #   entrypoint: /bin/sh -c '
+  #       test -d "/etc/letsencrypt/live/${APP_DOMAIN}" ||
+  #       certbot certonly --standalone -d "${APP_DOMAIN}" -m "${LETSENCRYPT_EMAIL}" --agree-tos --force-renewal'
+  #   ports:
+  #     - 80:80
+  #   volumes:
+  #     - ./volumes/certbot:/etc/letsencrypt:Z
+
+  # core:
+  #   build:
+  #     context: ./core
+  #     dockerfile: Dockerfile
+  #   networks: ["akira-net"]
+  #   volumes:
+  #     - ./core:/app
+  #     - ./volumes/data:/usr/share/data
+  #     - ./volumes/schemas:/usr/share/schemas:ro
+  #     - ./volumes/templates:/usr/share/templates:ro
+  #   environment:
+  #     DEBUG: "1"
+  #     SECRET_KEY: ${SECRET_KEY}
+  #     API_PREFIX: "/api/v1"
+  #     LANGUAGES: "en,ja,uk"
+  #     DATA_DIR: "/usr/share/data"
+  #     SCHEMAS_DIR: "/usr/share/schemas"
+  #     TEMPLATES_DIR: "/usr/share/templates"
+  #     OPENAI_API_KEY: "sk-proj-OTVCGTlvFJZ7GwKbeCVzT3BlbkFJ4SwowCGeKYG1DrlebdhJ"
+
+  app-api:
+    build:
+      context: ./app-api
+      dockerfile: Dockerfile
+    networks: ["akira-net"]
+    volumes:
+      - ./app-api:/app
+      - ./volumes/data:/usr/share/data
+      - ./volumes/schemas:/usr/share/schemas:ro
+    environment:
+      DEBUG: false
+      PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+      PROJECT_DOMAIN: ${APP_DOMAIN}
+      PROJECT_TITLE: "HelpBot AI"
+      PROJECT_DESCRIPTION: ""
+
+      SECRET_KEY: ${SECRET_KEY}
+      DATA_DIR: "/usr/share/data"
+      SCHEMAS_DIR: "/usr/share/schemas"
+      ADMIN_AUTH_API_KEY: "v9d1rfvdmx00sddx"
+      OPENAI_API_KEY: "sk-proj-OTVCGTlvFJZ7GwKbeCVzT3BlbkFJ4SwowCGeKYG1DrlebdhJ"
+
+  app-web:
+    build:
+      context: ./app-web
+      dockerfile: Dockerfile
+    networks: ["akira-net"]
+    volumes:
+      - ./app-web:/app
+      - ./volumes/templates:/usr/share/templates:ro
+    environment:
+      DEBUG: false
+      PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+      PROJECT_DOMAIN: ${APP_DOMAIN}
+      PROJECT_TITLE: "HelpBot AI"
+      PROJECT_DESCRIPTION: ""
+
+      LANGUAGES: "en,ja,uk"
+      TEMPLATES_DIR: "/usr/share/templates"
+      INTERNAL_API_HOST: "http://app-api:8080"
+      INTERNAL_API_SCHEMA: "http://app-api:8080/api/v1/openapi.json"
+      INTERNAL_API_ACCESS_KEY: "v9d1rfvdmx00sddx"
+
+    depends_on:
+      app-api:
+        condition: service_started
+        required: true
+
+  nginx:
+    image: nginx:1.27-alpine
+    networks: ["akira-net"]
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    volumes:
+      - ./volumes/conf/js_http.js:/etc/nginx/js_http.js:ro
+      - ./volumes/conf/js_auth.js:/etc/nginx/js_auth.js:ro
+      - ./volumes/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./volumes/conf/nginx_proxy.conf:/etc/nginx/nginx_proxy.conf:ro
+      - ./volumes/conf/nginx_auth.conf:/etc/nginx/nginx_auth.conf:ro
+      - ./volumes/conf/dhparam.pem:/etc/nginx/dhparam.pem:ro
+      # - ./volumes/conf/.htpasswd:/etc/nginx/.htpasswd:ro
+      # - ./volumes/users:/etc/nginx/users
+
+      - ./volumes/certbot/live/${APP_DOMAIN}/cert.pem:/etc/certs/cert.pem:ro
+      - ./volumes/certbot/live/${APP_DOMAIN}/privkey.pem:/etc/certs/privkey.pem:ro
+      - ./volumes/certbot/live/${APP_DOMAIN}/chain.pem:/etc/certs/chain.pem:ro
+
+      - ./volumes/html:/usr/share/nginx/html
+      - ./volumes/data:/usr/share/data
+      - ./volumes/logs:/var/log/nginx
+      - ./volumes/cache:/var/cache/nginx
+    environment:
+      PROJECT_NAME: ${COMPOSE_PROJECT_NAME}
+      PROJECT_DOMAIN: ${APP_DOMAIN}
+      PROJECT_TITLE: "HelpBot AI"
+      PROJECT_DESCRIPTION: ""
+      ADMIN_EMAILS: "gansikk@gmail.com slawa19@gmail.com"
+    depends_on:
+      auth-google:
+        condition: service_started
+        required: true
+      auth-github:
+        condition: service_started
+        required: true
+      app-api:
+        condition: service_started
+        required: true
+      app-web:
+        condition: service_started
+        required: true
+
+  certbot:
+    image: certbot/certbot
+    networks: ["akira-net"]
+    restart: no
+    # entrypoint: /bin/sh -c '
+    #     trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
+    volumes:
+      - ./volumes/certbot:/etc/letsencrypt:Z
+      - ./volumes/html:/var/www/certbot
+      - ./volumes/logs:/var/log/letsencrypt
+    # depends_on:
+    #   nginx:
+    #     condition: service_started
+    #     required: true
+
+  # whoami:
+  #   image: traefik/whoami
+  #   networks: ["akira-net"]
+  #   # environment:
+  #   #   - VIRTUAL_HOST=${APP_DOMAIN}
+
+  # ai-pdf-chat:
+  #   build: ./ai-pdf-chat/src
+  #   networks: ["akira-net"]
+  #   ports:
+  #     - "0.0.0.0:7861:7861"
+  #   volumes:
+  #     - "./ai-pdf-chat/data:/code/data"
+  #   environment:
+  #     GRADIO_SERVER_NAME: "0.0.0.0"
+  #     GRADIO_SERVER_PORT: 7861
+  #     GRADIO_ROOT_PATH: "/ai-pdf-chat"
+  #     GROQ_API_KEY: "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"
+  #     OPENAI_API_KEY: "sk-proj-OTVCGTlvFJZ7GwKbeCVzT3BlbkFJ4SwowCGeKYG1DrlebdhJ"
+
+  # postgres:
+  #   image: ankane/pgvector
+  #   networks: ["akira-net"]
+  #   restart: unless-stopped
+  #   ports:
+  #     - "127.0.0.1:5432:5432"
+  #   environment:
+  #     POSTGRES_DB: ${POSTGRES_DB}
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #   healthcheck:
+  #     test: ["CMD-SHELL", "pg_isready -U postgres"]
+  #     interval: 5s
+  #     timeout: 5s
+  #     retries: 5
+  #   # volumes:
+  #   #   - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # helpbot:
+  #   build:
+  #     context: ./helpbot
+  #     dockerfile: Dockerfile
+  #   networks: ["akira-net"]
+  #   volumes:
+  #     - ./helpbot:/app
+  #     - ./volumes/data:/usr/share/data
+  #   environment:
+  #     OPENAI_API_KEY: "sk-proj-OTVCGTlvFJZ7GwKbeCVzT3BlbkFJ4SwowCGeKYG1DrlebdhJ"
+
+  # app-rag:
+  #   build:
+  #     context: ./app-rag
+  #     dockerfile: Dockerfile
+  #   networks: ["akira-net"]
+  #   # command: "python manage.py runserver 0.0.0.0:80"
+  #   command: "gunicorn --bind 0.0.0.0:80 --reload app.wsgi"
+  #   volumes:
+  #     - ./app-rag:/app
+  #     - ./volumes/html/_media:/media
+  #     - ./volumes/uploads:/uploads
+  #   environment:
+  #     SECRET_KEY: ${SECRET_KEY}
+  #     MEDIA_URL: /_media/
+  #     UPLOADS_ROOT: /uploads
+  #     POSTGRES_HOST: postgres
+  #     POSTGRES_DB: ${POSTGRES_DB}
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #     OPENAI_API_KEY: "sk-proj-OTVCGTlvFJZ7GwKbeCVzT3BlbkFJ4SwowCGeKYG1DrlebdhJ"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+
+  # app-rag-embedder:
+  #   build:
+  #     context: ./app-rag
+  #     dockerfile: Dockerfile
+  #   networks: ["akira-net"]
+  #   command: "python manage.py embedder"
+  #   volumes:
+  #     - ./app-rag:/app
+  #     - ./volumes/html/_media:/media
+  #     - ./volumes/uploads:/uploads
+  #   environment:
+  #     SECRET_KEY: ${SECRET_KEY}
+  #     MEDIA_URL: /_media/
+  #     UPLOADS_ROOT: /uploads
+  #     POSTGRES_HOST: postgres
+  #     POSTGRES_DB: ${POSTGRES_DB}
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #     OPENAI_API_KEY: "sk-proj-OTVCGTlvFJZ7GwKbeCVzT3BlbkFJ4SwowCGeKYG1DrlebdhJ"
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+
+  # rag-chat:
+  #   build:
+  #     context: ./rag-chat
+  #     dockerfile: Dockerfile
+  #   networks: ["akira-net"]
+  #   command: "python manage.py runserver 0.0.0.0:80"
+  #   volumes:
+  #     - ./rag-chat:/app
+  #     - ./volumes/templates:/templates
+  #     - ./volumes/html/_media:/media
+  #   environment:
+  #     SECRET_KEY: ${SECRET_KEY}
+  #     POSTGRES_HOST: postgres
+  #     POSTGRES_DB: ${POSTGRES_DB}
+  #     POSTGRES_USER: ${POSTGRES_USER}
+  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
