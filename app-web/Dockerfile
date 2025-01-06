@@ -1,24 +1,29 @@
 FROM python:3.12-slim AS poetry
-RUN pip install poetry
-WORKDIR /app
-COPY pyproject.toml poetry.lock ./
-RUN poetry export -f requirements.txt --output requirements.txt
 
+# Upgrade pip and install Poetry
+RUN pip install --upgrade pip && pip install poetry
+
+# Set the working directory
+WORKDIR /app
+
+# Copy Poetry configuration files
+COPY pyproject.toml poetry.lock ./
+
+# Export dependencies to requirements.txt
+RUN poetry export -f requirements.txt --without-hashes --output requirements.txt
+
+# Runtime stage
 FROM python:3.12-slim
 WORKDIR /app
-COPY --from=poetry /app/requirements.txt .
-RUN pip install -r requirements.txt
-# EXPOSE 8080
 
-# copy docker-entrypoint.sh
-# COPY ./docker-entrypoint.sh /docker-entrypoint.sh
-# RUN chmod a+x /docker-entrypoint.sh
+# Copy the exported requirements from the previous stage
+COPY --from=poetry /app/requirements.txt ./
 
-# copy project
-COPY . .
+# Install runtime dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# run docker-entrypoint.sh
-# ENTRYPOINT ["/docker-entrypoint.sh"]
+# Copy the project files to the container
+COPY . ./
 
+# Command to run the application
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080", "--reload"]
-
