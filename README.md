@@ -36,13 +36,8 @@ The project is organized into multiple services, each running in its own Docker 
 - Docker Compose
 
 ### Installation
-1. Clone the repository:
-```sh
-git clone https://github.com/gansik/akira-release.git
-cd akira-release
-```
-2. Set up environment variables in a .env file
-3. Build and start the services:
+1. Set up environment variables in a .env file
+2. Build and start the services:
 ```sh
 docker-compose up -d
 ```
