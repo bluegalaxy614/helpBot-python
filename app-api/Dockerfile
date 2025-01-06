@@ -1,7 +1,10 @@
 FROM python:3.12-slim AS poetry
 
-# Install pip and Poetry
+# Upgrade pip and install Poetry
 RUN pip install --upgrade pip && pip install poetry
+
+# Install the Poetry Export Plugin
+RUN poetry self add poetry-plugin-export
 
 # Set the working directory
 WORKDIR /app
@@ -15,7 +18,6 @@ RUN poetry export -f requirements.txt --without-hashes --output requirements.txt
 # Install dependencies from requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Use a smaller image for runtime
 FROM python:3.12-slim
 WORKDIR /app
 
