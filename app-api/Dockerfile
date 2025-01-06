@@ -1,8 +1,11 @@
 FROM python:3.12-slim AS poetry
-RUN pip install poetry
+RUN RUN pip install --upgrade pip && pip install poetry
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
-RUN poetry export -f requirements.txt --output requirements.txt
+RUN poetry export -f requirements.txt --without-hashes --output requirements.txt
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 FROM python:3.12-slim
 WORKDIR /app
