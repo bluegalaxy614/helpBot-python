@@ -7,6 +7,14 @@ __pycache__/
 # C extensions
 *.so
 
+
+# vim
+*.swp
+*swo
+
+# venv
+venv
+
 # Distribution / packaging
 .Python
 env/
