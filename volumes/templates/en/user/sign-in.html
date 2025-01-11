@@ -34,14 +34,14 @@
                     <div class="col-sm-10 col-xl-8 m-auto">
                         <h1 class="fs-2">Login into account</h1>
                         <p class="lead mb-4">Please log in with your account.</p>
-                        <form>
+                        <form method="POST" action="/auth/sign-in">
                             <p>
                                 <label class="form-label">Email address *</label>
-                                <input type="email" class="form-control" placeholder="E-mail" disabled>
+                                <input type="email" class="form-control" placeholder="E-mail">
                             </p>
                             <p>
                                 <label class="form-label">Password *</label>
-                                <input type="password" class="form-control" placeholder="password" disabled>
+                                <input type="password" class="form-control" placeholder="password">
                                 <div id="passwordHelpBlock" class="form-text">
                                     Your password must be 8 characters at least
                                 </div>
@@ -75,7 +75,7 @@
                         <div class="row">
                             <!-- Social btn -->
                             <div class="col-xxl-6 d-grid py-3">
-                                <form method="POST" action="/auth/google/start?rd=/auth/sign-in%3Frd%3D/<!--# echo var='request_lang' -->/assistants.html">
+								<form method="POST" action="/auth/google/start?rd=/auth/sign-in%3Frd%3D/<!--# echo var='request_lang' -->/assistants.html">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="bi bi-google"></i>
                                         <span translate="yes">Login with Google</span>

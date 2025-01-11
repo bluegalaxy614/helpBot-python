@@ -1,12 +1,20 @@
+import os
+
 from starlette.config import Config
 from starlette.datastructures import CommaSeparatedStrings
 
 config = Config()
 
+SECRET_KEY = "fskljdsdjfhsdkjfhs9805423"
+
 DEBUG = config('DEBUG', cast=bool, default=True)
+
 PROJECT_NAME = config('PROJECT_NAME', default='akira')
+
 PROJECT_DOMAIN = config('PROJECT_DOMAIN', default='localhost')
+
 PROJECT_TITLE = config('PROJECT_TITLE', default=PROJECT_NAME)
+
 PROJECT_DESCRIPTION = config('PROJECT_DESCRIPTION', default='')
 
 LANGUAGES = config(
@@ -36,3 +44,11 @@ STATIC_URL = config(
 TEMPLATES_DIR = config(
     'TEMPLATES_DIR', default='../volumes/templates'
 )
+
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
+
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
+
+GOOGLE_AUTH_SCOPE = os.getenv("GOOGLE_AUTH_SCOPE", "external")
+
+MONGO_URI = os.getenv("MONGO_URL", "mongodb://mongo_db:27017")

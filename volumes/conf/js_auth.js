@@ -287,6 +287,50 @@ function user_is_superadmin(r) {
     return (user_email && admin_emails.includes(user_email)) ? 'yes' : '';
 }
 
+
+function registerUser(r) {
+    if (r.method !== 'POST') {
+        r.return(405, "Method Not Allowed\n");
+        return;
+    }
+
+    let body = "";
+
+    r.on('upload', function (chunk, flags) {
+        body += chunk;
+    });
+
+    r.on('done', function (flags) {
+        // parse JSON
+        let data;
+        try {
+            data = JSON.parse(body);
+        } catch(e) {
+            r.return(400, "Invalid JSON\n");
+            return;
+        }
+
+        // call the microservice
+        fetch('http://app-web:8080/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(resp => {
+            return resp.text().then(txt => {
+                // pass along status code and text
+                r.return(resp.status, txt);
+            });
+        })
+        .catch(err => {
+            r.return(502, "Bad Gateway: " + err.message + "\n");
+        });
+    });
+}
+
+
 export default {
     user_set_variables, user_is_superadmin,
     user_sign_in, user_sign_out, user_information

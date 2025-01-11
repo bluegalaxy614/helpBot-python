@@ -13,6 +13,7 @@ __pycache__/
 *swo
 
 # venv
+.source.env
 venv
 
 # Distribution / packaging

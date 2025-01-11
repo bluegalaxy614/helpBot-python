@@ -51,9 +51,9 @@ class Templates:
         self.auth_required_paths = set()
 
         for path in self.paths:
-            with open(f'{templates_dir}{path}', 'r') as fp:
+            with open(f'{templates_dir}{path}', 'rb') as fp:
                 text = fp.read()
-                if 'set state.auth_required = True' in text:
+                if 'set state.auth_required = True' in str(text):
                     self.auth_required_paths.add(path)
 
     def get_template_path(self, request):
