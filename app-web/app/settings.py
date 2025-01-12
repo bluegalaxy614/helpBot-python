@@ -51,4 +51,8 @@ GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
 
 GOOGLE_AUTH_SCOPE = os.getenv("GOOGLE_AUTH_SCOPE", "external")
 
-MONGO_URI = os.getenv("MONGO_URL", "mongodb://mongo_db:27017")
+MONGO_URI = "mongodb://akira-db-user:fkujsdhfkjsdfhdksjfsd9405@mongo:27017"
+
+MONGO_DATABASE_NAME = "akira_db"
+
+USER_COLLECTION_NAME = "users"

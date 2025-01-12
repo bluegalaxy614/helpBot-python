@@ -76,16 +76,17 @@
                 </form>
 
                 <div class="navbar-nav">
-                    <!--# if expr='$user_email' -->
-                        <a href="/<!--# echo var='request_lang' -->/user/profile.html">
-                            <img width="40" class="img-thumbnail" alt="User Avatar" src="<!--# echo var='user_avatar' -->">
+                    {% if request.user.is_authenticated %}
+                        <a class="btn btn-dark" href="/{{ state.lang }}/user/profile.html">
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            <span translate="yes">Profile</span>
                         </a>
-                    <!--# else -->
-                        <a class="btn btn-dark" href="/<!--# echo var='request_lang' -->/user/sign-in.html">
+                    {% else %}
+                        <a class="btn btn-dark" href="/{{ state.lang}}/user/sign-in.html">
                             <i class="bi bi-box-arrow-in-right"></i>
                             <span translate="yes">Sign In</span>
                         </a>
-                    <!--# endif -->
+                    {% endif %}
                 </div>
 
             </div>

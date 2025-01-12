@@ -34,3 +34,8 @@ tqdm==4.67.1
 typing_extensions==4.12.2
 uvicorn==0.30.6
 websockets==13.1
+authlib
+motor
+bcrypt
+python-multipart
+starlette-csrf

@@ -136,7 +136,7 @@ services:
       PROJECT_TITLE: "HelpBot AI"
       PROJECT_DESCRIPTION: ""
       MONGO_URI: "mongodb://mongo:27017"
-      MONGO_DB_NAME: "akira-auth"
+      MONGO_DB_NAME: "akira_db"
       LANGUAGES: "en,ja,uk"
       TEMPLATES_DIR: "/usr/share/templates"
       INTERNAL_API_HOST: "http://app-api:8080"
@@ -157,6 +157,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: "akira-db-user"
       MONGO_INITDB_ROOT_PASSWORD: "fkujsdhfkjsdfhdksjfsd9405" 
+      MONGO_INITDB_DATABASE: "akira_db"
 
 
   nginx:

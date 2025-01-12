@@ -8,6 +8,10 @@ SCOPE_OWNER = 'owner'
 SCOPE_MEMBER = 'member'
 
 
+
+
+
+
 class AuthUser(BaseUser):
 
     def __init__(self, email: str) -> None:
@@ -55,17 +59,3 @@ class AuthBackend(AuthenticationBackend):
         # return AuthCredentials([SCOPE_MEMBER]), AuthUser('user@email')
 
 
-# async def homepage(request):
-#     if request.user.is_authenticated:
-#         return PlainTextResponse('Hello, ' + request.user.display_name)
-#     return PlainTextResponse('Hello, you')
-
-# routes = [
-#     Route("/", endpoint=homepage)
-# ]
-
-# middleware = [
-#     Middleware(AuthenticationMiddleware, backend=BasicAuthBackend())
-# ]
-
-# app = Starlette(routes=routes, middleware=middleware)

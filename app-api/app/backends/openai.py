@@ -33,14 +33,21 @@ class AssistantsBackend(BaseBackend):
         )
 
         resp_data = resp.json()
-
         self.data = {}
+
+        try:
+            resp_data['data']
+        except KeyError:
+            self._mutated = False
+            return False
+
         for item_data in resp_data['data']:
             item_key = item_data['id']
             item_data['user_email'] = item_data['metadata']['user_email']
             self.data[item_key] = item_data
 
         self._mutated = True
+        return True
 
     async def insert(self, data, key_getter, defaults=None):
 

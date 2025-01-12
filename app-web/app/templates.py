@@ -4,6 +4,8 @@ from jinja2.utils import Namespace
 from starlette.responses import HTMLResponse, RedirectResponse
 from starlette.exceptions import HTTPException
 from app import settings
+from app.utils import get_create_csrf_token
+
 
 
 class Templates:
@@ -27,7 +29,6 @@ class Templates:
             'project_domain': settings.PROJECT_DOMAIN,
             'project_title': settings.PROJECT_TITLE,
             'project_description': settings.PROJECT_DESCRIPTION,
-
             'lang': '',
             'theme': '',
 
@@ -69,7 +70,6 @@ class Templates:
         return tmpl_path
 
     async def handler(self, request):
-
         tmpl_path = self.get_template_path(request)
 
         if tmpl_path not in self.paths:
@@ -77,6 +77,7 @@ class Templates:
 
         if tmpl_path in self.auth_required_paths and not request.user.is_authenticated:
             _, lang, _ = request.url.path.split('/', 2)
+            
             return RedirectResponse(
                 url=f'/{lang}/user/sign-in.html?rd={request.url.path}',
                 status_code=302
@@ -86,69 +87,24 @@ class Templates:
 
         state = dict(self._state_defaults)
         _, state['lang'], _ = request.url.path.split('/', 2)
-
         context = {
             'state': Namespace(**state),
             'request': request,
             'internal_api': request.app.state.internal_api,
+            'errors' : request.session.get('errors'),
+            'messages' : request.session.get('messages')
+            #'csrf_token' : request.session.get("csrf_token")
         }
 
+        self.clean_session(request)
+
         html_content = await template.render_async(context)
-
         return HTMLResponse(html_content, status_code=200)
+   
+    
+    def clean_session(self, request):
+        if request.session.get("errors") is not None:
+            request.session.pop("errors")
 
-    # async def post_handler(self, request):
-
-    #     form_data = await self.get_form_data(request)
-
-    #     form_name = form_data.pop('form-name', 'undefined')
-    #     form_ctrl = getattr(request.app.state.internal_api, form_name, None)
-
-    #     if form_ctrl:
-    #         resp_data = await form_ctrl.send_data(form_data)
-    #         print(resp_data)
-
-    #     return RedirectResponse(url=request.url.path, status_code=302)
-
-    # async def get_response(self, template, context):
-    #     content = await template.render_async(context)
-    #     return HTMLResponse(content, status_code=200)
-
-    # async def __call__(self, scope, receive, send):
-    #     assert scope['type'] == 'http'
-
-    #     request = Request(scope=scope)
-    #     for attr in dir(request):
-    #         print(attr, getattr(request, attr))
-
-    #     if scope['method'] not in ('GET', 'HEAD', 'POST'):
-    #         raise HTTPException(status_code=405)
-
-    #     raw_path = str(scope['path'])
-    #     template_path = self.get_template_path(raw_path)
-
-    #     if not template_path:
-    #         raise HTTPException(status_code=404)
-
-    #     template = self.get_template(template_path)
-
-    #     request_state = Namespace(**self._state_defaults)
-
-    #     context = {
-    #         'state': request_state,
-    #         'request': request,
-    #         'internal_api': request.app.state.internal_api,
-    #     }
-
-
-    #     # block_context = template.blocks.get('context')
-    #     # if block_context:
-    #     #     render_context = template.new_context(context)
-    #     #     async for rr in block_context(render_context):
-    #     #         print(rr)
-        
-    #     html_content = await template.render_async(context)
-
-    #     response = HTMLResponse(html_content, status_code=200)
-
-    #     await response(scope, receive, send)
+        if request.session.get("messages") is not None:
+            request.session.pop("messages")

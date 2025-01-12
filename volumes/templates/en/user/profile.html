@@ -14,19 +14,19 @@
 
         <p>
             <label>Name</label>
-            <input name="user_name" value="<!--# echo var='user_name' -->" type="text" class="form-control" aria-describedby="user_name_hint">
+            <input name="user_name" value="{{ request.user.username }}" type="text" class="form-control" aria-describedby="user_name_hint">
             <small id="user_name_hint" class="form-text">The name associated with this account</small>
         </p>
 
         <p>
             <label>Email address</label>
-            <input name="user_email" value="<!--# echo var='user_email' -->" type="email" class="form-control" aria-describedby="user_email_hint" disabled readonly>
+            <input name="user_email" value="{{ request.user.email }}" type="email" class="form-control" aria-describedby="user_email_hint" disabled readonly>
             <small id="user_email_hint" class="form-text">The email address associated with this account</small>
         </p>
 
         <p>
             <label>Phone number</label>
-            <input name="user_phone" value="<!--# echo var='user_phone' -->" type="phone" class="form-control" aria-describedby="user_phone_hint">
+            <input name="user_phone" value="{{ request.user.phone_number }}" type="phone" class="form-control" aria-describedby="user_phone_hint">
             <small id="user_phone_hint" class="form-text">The phone number associated with this account</small>
         </p>
 

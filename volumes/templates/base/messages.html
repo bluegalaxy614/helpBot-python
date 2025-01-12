@@ -1,0 +1,11 @@
+<!-- messages -->
+{% if messages %}
+<div style="color: blue;">
+	<ul>
+		{% for message in messages %}
+		<li>{{ message }}</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endif %}
+

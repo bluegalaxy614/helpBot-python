@@ -1,10 +1,13 @@
 import httpx
 import contextlib
+
 from starlette.applications import Starlette
 from starlette.exceptions import HTTPException
+from starlette.responses import JSONResponse
 from starlette.routing import Route, Mount
 from starlette.middleware import Middleware
 from starlette.middleware.authentication import AuthenticationMiddleware
+
 from app import settings
 from app.auth import AuthBackend, SCOPE_ADMIN
 from app.handlers import JsonSchemaHandlers

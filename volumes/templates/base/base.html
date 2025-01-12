@@ -93,11 +93,13 @@
 
                     <hr>
 
-                    <form method="POST" action="/auth/sign-out?rd=/">
+                    <form method="POST" action="/{{ state.lang }}/sign-out">
+                        <input name="lang" hidden value="{{ request.path.split('/')[1] }}" />
                         <button type="submit" class="btn btn-danger px-3">
                             <span translate="yes">Sign Out</span>
                         </button>
                     </form>
+
                 </div>
             </aside>
         {% endif %}

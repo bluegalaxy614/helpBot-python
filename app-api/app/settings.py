@@ -4,9 +4,13 @@ from starlette.datastructures import Secret
 config = Config()
 
 DEBUG = config('DEBUG', cast=bool, default=True)
+
 PROJECT_NAME = config('PROJECT_NAME', default='akira')
+
 PROJECT_DOMAIN = config('PROJECT_DOMAIN', default='localhost')
+
 PROJECT_TITLE = config('PROJECT_TITLE', default=PROJECT_NAME)
+
 PROJECT_DESCRIPTION = config('PROJECT_DESCRIPTION', default='')
 
 SECRET_KEY = config(
