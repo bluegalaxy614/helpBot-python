@@ -31,37 +31,26 @@ async def handle_google_oauth(request: Request):
 
 
 async def handle_google_callback(request: Request, users_collection):
-    """
-    Handle the OAuth callback from Google. 
-    Exchange code for token, and retrieve user info.
-    """
     token = await google.authorize_access_token(request)
     resp = await google.get('userinfo', token=token)
     user_info = resp.json()
 
-    # user_info might contain { 'email': 'xxx', 'name': 'xxx', 'picture': 'xxx', ... }
-
-    # Store or update user in DB
     email = user_info.get("email")
-    existing_user = await users_collection.find_one({"email": email})
+    user = await request.app.state.db[settings.USER_COLLECTION_NAME].users_collection.find_one(
+        {"email": email}
+    )
 
-    if not existing_user:
-        # Create a new user doc
-        new_user = {
+    if not user:
+        user = {
             "email": email,
-            "name": user_info.get("name"),
+            "username" : email.strip("@")[0],
             "auth_provider": "google",
         }
-        result = await users_collection.insert_one(new_user)
-        user_id = str(result.inserted_id)
-    else:
-        user_id = str(existing_user["_id"])
-
-    # Save user info in session
-    request.session.update({
-        "user_id": user_id,
-        "email": email,
-        "is_authenticated": True
-    })
-
-    return RedirectResponse(url="/profile", status_code=302)
+        try:
+            result = await request.app.state.db[settings.USER_COLLECTION_NAME].insert_one(new_user)
+        except Exception as error:
+            request.session['errors'] = ["Unable to register user using google oauth!"]
+            return RedirectResponse(url="/en/user/sign-in.html", code=302)
+        
+    request.session['users_email'] = email
+    return RedirectResponse(url="/en/user/profile.html", status_code=302)

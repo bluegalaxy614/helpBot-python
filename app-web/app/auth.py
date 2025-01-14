@@ -39,9 +39,20 @@ class AuthUser(BaseUser):
     def is_authenticated(self) -> bool:
         return True
 
+
     @property
     def display_name(self) -> str:
         return self.email
+
+
+    @classmethod
+    async def cook_user(cls, request, **user):
+        try:
+            result = await request.app.state.db[settings.USER_COLLECTION_NAME].insert_one(new_user)
+        except Exception as error:
+            errors = ["Unable to register user using google oauth!"]
+            return False, errors
+        return True, result
 
 
 class MongoAuthBackend(AuthenticationBackend):

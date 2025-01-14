@@ -1,8 +1,11 @@
 import logging
 import asyncio
 import contextlib
+import smtplib
+from email.message import EmailMessage
 
 import bcrypt
+from itsdangerous import BadSignature, SignatureExpired
 from starlette.applications import Starlette
 from starlette.staticfiles import StaticFiles
 from starlette.middleware import Middleware
@@ -17,8 +20,8 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from app import settings
 from app.templates import Templates
 from app.auth import AuthBackend, MongoAuthBackend
+from app.oauths.google_oauth import handle_google_oauth
 from app.api import OpenApiClient
-from app.oauth import handle_google_oauth, handle_google_callback
 from app.utils import hash_password, verify_password
 
 
@@ -74,7 +77,6 @@ async def lifespan(app):
     else:
         logger.info("Admin user already exists.")
 
-
     yield
 
     app.state.db_client.close()
@@ -83,7 +85,7 @@ async def lifespan(app):
 
 
 ################################################
-# Routes
+# Basic authentication Routes
 ################################################
 
 
@@ -165,11 +167,77 @@ async def sign_out(request: Request):
     return RedirectResponse(url=f'/{lang}/user/sign-in.html', status_code=302)
 
 
+async def reset_password_request(request: Request):
+    data = await request.json()
+    email = data.get("email")
+    user = await request.app.state.db[settings.USER_COLLECTION_NAME].find_one({"email": email})
+    if not user:
+        return JSONResponse({"error": "Incorrect email"}, status_code=400)
+
+    token = settings.RESET_PASSWORD_SECRET.dumps(email, salt="reset-password")
+    reset_link = f"https://{settings.PROJECT_DOMAIN}/en/reset-password/{token}"
+
+    msg = EmailMessage()
+    msg["Subject"] = "Password Reset Request"
+    msg["From"] = settings.APP_EMAIL_ADDRESS
+    msg["To"] = email
+    msg.set_content(f"Click the link to reset your password: {reset_link}")
+
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+            smtp.login(settings.APP_EMAIL_ADDRESS, settings.APP_EMAIL_PASSWORD)
+            smtp.send_message(msg)
+    except Exception as e:
+        return JSONResponse({"error": "Failed to send email"}, status_code=400)
+
+    return JSONResponse({"message": "If the email is registered, a reset link will be sent."})
+
+
+async def reset_password_page(request: Request):
+    token = request.path_params["token"]
+
+    try:
+        email = RESET_PASSWORD_SECRET.loads(token, salt="reset-password", max_age=3600)
+    except (SignatureExpired, BadSignature):
+        return RedirectResponse("/en/user/sign-in.html", status_code=302)
+
+    errors = request.session.pop("errors", [])
+    return templates.TemplateResponse("reset.html", {"request": request, "token": token, "errors": errors})
+
+
+
+async def reset_password(request: Request):
+    token = request.path_params["token"]
+    form = await request.form()
+
+    try:
+        email = RESET_PASSWORD_SECRET.loads(token, salt="reset-password", max_age=3600)
+    except (SignatureExpired, BadSignature):
+        return RedirectResponse(f"/reset-password/{token}", status_code=302)
+
+    new_password = form.get("password")
+    confirm_password = form.get("confirm_password")
+
+    if not new_password or not confirm_password or new_password != confirm_password:
+        request.session["errors"] = ["Passwords do not match."]
+        return RedirectResponse(f"/reset-password/{token}", status_code=302)
+
+    hashed_password = bcrypt.hashpw(new_password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+    await app.state.db[settings.USER_COLLECTION_NAME].update_one({"email": email}, {"$set": {"password": hashed_password}})
+
+    request.session["messages"] = ["Password reset successful. Please log in."]
+    return RedirectResponse("/login", status_code=302)
+
 routes = []
 for lang in settings.LANGUAGES:
     routes.append(Route(f"/{lang}/sign-in", endpoint=sign_in, methods=['post']))
     routes.append(Route(f'/{lang}/register', endpoint=register_user, methods=['post']))	
     routes.append(Route(f'/{lang}/sign-out', endpoint=sign_out, methods=["post"]))
+    routes.append(Route(f'/{lang}/google-oauth', endpoint=handle_google_oauth, methods=["get"]))
+    #routes.append(Route(f'/{lang}/google-callback', endpoint=google_callback, methods=['get']))
+    routes.append(Route("/{lang}/reset-password-request/", reset_password_request, methods=["POST"]))
+    routes.append(Route("/{lang}/reset-password/{token}", reset_password_page, methods=["GET"]))
+    routes.append(Route("/{lang}/reset-password/{token}", reset_password, methods=["POST"]))
 
 
 app = Starlette(

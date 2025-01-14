@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" href="/_/bs/styles.css">
     <link rel="stylesheet" href="/_/bs-icons/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/_/css/vendor/toastr.css">
     <link rel="stylesheet" href="/_/css/main.css">
 
     <link rel="stylesheet" href="/_/sui/swagger-ui.css" />
@@ -123,8 +124,15 @@
     {% if state.show_downbar %}
         {% include state.template_downbar %}
     {% endif %}
-
+    <script 
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
+        crossorigin="anonymous" 
+        referrerpolicy="no-referrer">
+    </script>
     <script src="/_/bs/bootstrap.bundle.min.js"></script>
-
+    <script src="/_/js/vendor/toastr.js"></script>
+    {% block footer_scripts %}
+    {% endblock %}
 </body>
 </html>
