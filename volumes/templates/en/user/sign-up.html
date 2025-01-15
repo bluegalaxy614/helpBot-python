@@ -1,81 +1,124 @@
-<!--# set var='document_title' value='User Registration' -->
-<!--# include file='/_ssi/header.html' -->
+{% set state.page_title = 'Registration HelpBot' %}
+{% extends state.template_base %}
 
 
+{% block content %}
 
-{% if request.user.is_authenticated %}
-    <div class="card mx-auto" style="width: 60%">
-        <div class="card-header">
-            <h1 translate="yes">Authorised Access</h1>
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                <a href="/<!--# echo var='request_lang' -->/user/profile.html">
-                    {# <b><!--# echo var='user_name' --></b> profile #}
-                    <b>{{ request.user.username }}</b>
-                </a>
-            </p>
-        </div>
-    </div>
-{% else %}
-    <section class="container-fluid">
-        <div class="row">
-			{% include 'base/errors.html' %}
-            {% include 'base/messages.html' %}
-            <div class="col-12 col-lg-6 d-md-flex align-items-center justify-content-center bg-primary-subtle">
-                <div class="p-3 p-lg-5">
-                    <div class="text-center">
-                        <h2 class="fw-bold">Welcome to the HelpBot AI</h2>
-                        <p class="mb-0 h6 fw-light">Register in order to use HelpBot :)</p>
-                    </div>
-                    <img src="/_/img/element/02.svg" class="img-fluid" alt="">
-                </div>
-            </div>
+	{% if request.user.is_authenticated %}
+		<div class="card mx-auto" style="width: 60%">
+			<div class="card-header">
+				<h1 translate="yes">Authorised Access</h1>
+			</div>
+			<div class="card-body">
+				<p class="card-text">
+					<a href="/<!--# echo var='request_lang' -->/user/profile.html">
+						<b>{{ request.user.username }}</b>
+					</a>
+				</p>
+			</div>
+		</div>
+	{% else %}
+		<section class="container-fluid">
+			<div class="row">
+				{% include 'base/errors.html' %}
+				{% include 'base/messages.html' %}
+				<div class="col-12 col-lg-6 d-md-flex align-items-center justify-content-center bg-primary-subtle">
+					<div class="p-3 p-lg-5">
+						<div class="text-center">
+							<h2 class="fw-bold">Welcome to the HelpBot AI</h2>
+							<p class="mb-0 h6 fw-light">Register in order to use HelpBot :)</p>
+						</div>
+						<img src="/_/img/element/02.svg" class="img-fluid" alt="">
+					</div>
+				</div>
 
-            <div class="col-12 col-lg-6 m-auto">
-                <div class="row my-5">
-                    <div class="col-sm-10 col-xl-8 m-auto">
-                        <h1 class="fs-2">Create account</h1>
-                        <form method="POST" action="/{{ request.path.split('/')[1] }}/register">
-                            <input name="csrf_token" hidden value="{{ csrf_token }}" />
-                            <p>
-                                <input name="lang" hidden value="{{ request.path.split('/')[1] }}" />
-                                <label class="form-label">Email address *</label>
-                                <input name="email" type="email" required class="form-control" placeholder="E-mail">
-                            </p>
-                            <p>
-                                <label class="form-label">Username *</label>
-                                <input name="username" type="text" required class="form-control" placeholder="username">
-                            </p>
-                            <p>
-                                <label class="form-label">Password *</label>
-                                <input name="password" type="password" class="form-control" placeholder="password">
-                                <div id="passwordHelpBlock" class="form-text">
-                                    Your password must be 8 characters at least
-                                </div>
-                            </p>
+				<div class="col-12 col-lg-6 m-auto">
+					<div class="row my-5">
+						<div class="col-sm-10 col-xl-8 m-auto">
+							<h1 class="fs-2">Create account</h1>
+							<form id="register-form" method="POST">
+								<input name="csrf_token" hidden value="{{ csrf_token }}" />
+								<p>
+									<input id="lang" name="lang" hidden value="{{ request.path.split('/')[1] }}" />
+									<label class="form-label">Email address *</label>
+									<input id="email" name="email" type="email" required class="form-control" placeholder="E-mail">
+								</p>
+								<p>
+									<label class="form-label">Username *</label>
+									<input id="username" name="username" type="text" required class="form-control" placeholder="username">
+								</p>
+								<p>
+									<label class="form-label">Password *</label>
+									<input id="password" name="password" type="password" class="form-control" placeholder="password">
+									<div id="passwordHelpBlock" class="form-text">
+										Your password must be 8 characters at least
+									</div>
+								</p>
 
-                            <div class="mb-4 d-flex justify-content-between">
-                                <div>
-                                    <a href="#" class="text-secondary">
-                                        <u>Have an account already?</u>
-                                    </a>
-                                </div>
-                            </div>
+								<div class="mb-4 d-flex justify-content-between">
+									<div>
+                                        <a href="/{{ state.lang }}/user/sign-in.html" class="text-secondary">
+											<u>Have an account already?</u>
+										</a>
+									</div>
+								</div>
 
-                            <p class="d-grid">
-                                <button class="btn btn-primary" type="submit">Create +</button>
-                            </p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-{% endif %}
+								<p class="d-grid">
+									<button class="btn btn-primary" type="submit">Create +</button>
+								</p>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	{% endif %}
 
-
-
+{% endblock %}
 
 
-<!--# include file="/_ssi/footer.html" -->
+{% block footer_scripts %}
+    <script>
+		addEventListener('DOMContentLoaded', function () {
+			const registerForm = document.getElementById('register-form');
+
+			if (registerForm) {
+				registerForm.addEventListener('submit', async function (event) {
+					event.preventDefault();
+
+					const email = document.getElementById('email').value;
+					const username = document.getElementById('username').value;
+					const password = document.getElementById('password').value;
+
+					try {
+						const response = await fetch('/en/register-step-1', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({ email, username, password }),
+						});
+
+						const data = await response.json();
+
+						if (response.ok) {
+							if (data.message) {
+								toastr.success(data.message, 'Registration Successful');
+							}
+						} else {
+							if (data.error) {
+								toastr.error(data.error, 'Registration Failed');
+							} else {
+								toastr.error('An unexpected error occurred', 'Registration Failed');
+							}
+						}
+					} catch (error) {
+						toastr.error('Failed to connect to the server', 'Registration Failed');
+						console.error('Error:', error);
+					}
+				});
+			}
+		});
+
+    </script>
+{% endblock %}

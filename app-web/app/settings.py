@@ -82,10 +82,28 @@ USER_COLLECTION_NAME = "users"
 # Email
 ##################################################
 
-RESET_PASSWORD_SECRET = URLSafeTimedSerializer(SECRET_KEY)
 
-APP_EMAIL_ADDRESS = os.getenv("APP_EMAIL_ADDRESS")
+TOKEN_SECRET_SERIALIZER = URLSafeTimedSerializer(SECRET_KEY)
+
+SENDGRID_API_KEY = os.getenv(
+    "SENDGRID_API_KEY",
+    "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"
+)
+
+SENDGRID_USERNAME = os.getenv(
+    "SENDGRID_USERNAME", 
+    "apikey"
+)
+
+APP_EMAIL_ADDRESS = "akira.helpbot@gmail.com"
 
 APP_EMAIL_PASSWORD = os.getenv("APP_EMAIL_PASSWORD")
 
 
+#######################################
+# Redis conf
+#######################################
+
+REDIS_HOST = os.getenv("REDIS_HOST", "redis")
+
+REDIS_PORT = os.getenv("REDIS_PORT", 6379)

@@ -1,6 +1,12 @@
 import bcrypt
 from starlette.requests import Request
+from starlette.responses import JSONResponse
 
+
+def error_json_resp(error, code=400):
+    data ={"error" : error}
+    return JSONResponse(data, status_code=code)
+    
 
 def hash_password(plain_password: str) -> bytes:
     """Hash the plain text password."""

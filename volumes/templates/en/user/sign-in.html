@@ -1,4 +1,4 @@
-{% set state.page_title = 'HelpBot AI' %}
+{% set state.page_title = 'HelpBot Sign In' %}
 {% extends state.template_base %}
 
 
@@ -11,7 +11,7 @@
             <div class="card-body">
                 <p class="card-text">
                     <a href="/<!--# echo var='request_lang' -->/user/profile.html">
-                        <b><!--# echo var='user_name' --></b> profile
+                        <b>{{ request.user.username }}'s</b> profile
                     </a>
                 </p>
             </div>
@@ -59,7 +59,7 @@
                                     </div>
 
                                     <div>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#resetPasswordModal" class="text-secondary">
+                                        <a href="/{{ state.lang }}/user/reset-password.html" class="text-secondary">
                                             <u>Forgot password?</u>
                                         </a>
                                     </div>
@@ -100,27 +100,6 @@
                                 <span>Don't have an account? <a href="sign-up.html">Signup here</a></span>
                             </p>
 
-                            <!-- Bootstrap Modal -->
-                            <div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form id="resetPasswordForm">
-                                                <div class="mb-3">
-                                                    <label for="resetEmail" class="form-label">Email:</label>
-                                                    <input type="email" id="resetEmail" class="form-control" placeholder="Enter your email" required>
-                                                </div>
-                                                <div class="alert alert-success d-none" id="resetSuccessMessage">If the email is registered, a reset link will be sent.</div>
-                                                <button type="button" class="btn btn-primary" id="resetPasswordButton">Send Reset Link</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,32 +108,4 @@
     {% endif %}
 {% endblock %}
 
-{% block footer_scripts %}
-    <script>
-        document.getElementById("resetPasswordButton").addEventListener("click", async () => {
-            const email = document.getElementById("resetEmail").value;
-            const successMessage = document.getElementById("resetSuccessMessage");
-
-            fetch("/{{ state.lang }}/reset-password-request/", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
-            }).then(response => {
-                if (response.ok) {
-                    return response.json()
-                } else {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-            }).then(data => {
-                var message = data
-                toastr.success(message)
-                setTimeout(() => {
-                    const modal = bootstrap.Modal.getInstance(document.getElementById("resetPasswordModal"));
-                    modal.hide();
-                }, 2000);
-            }).catch(error => { 
-                toastr.error(error)
-            })
-        });
-    </script>
-{% endblock %}
+{% block footer_scripts %}{% endblock %}

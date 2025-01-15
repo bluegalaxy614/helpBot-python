@@ -81,3 +81,19 @@ Access the application at https://localhost (or the configured domain).
     sudo docker compose run --rm certbot certonly -d ai.ioix.net --webroot
 ```
 
+
+### Creds
+
+
+#### Gmail:
+
+email: akira.helpbot@gmail.com
+password: AkiraHelpBot135
+
+
+#### Twilio:
+
+email: akira.helpbot@gmail.com
+password: AkiraHelpBot135
+recovery code: V6S9YVNJC9L9QLPWLDYXLLHW
+

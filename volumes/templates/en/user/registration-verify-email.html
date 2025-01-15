@@ -1,0 +1,26 @@
+{% set state.page_title = 'HelpBot Verify Email' %}
+{% extends state.template_base %}
+
+
+{% block content %}
+    {% if errors %}
+        <h3 class="text-danger">Verification Failed!</h3>
+        {% for error in errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+    {% endif %}
+    {% if messages %}
+        <h3 class="text-success">Success</h3>
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
+
+{% block footer_scripts %}
+    <script>
+        window.setTimeout(function() {location.href = "/{{ state.lang}}/user/sign-in.html"}, 5000)
+    </script>
+{% endblock %}
